@@ -1,0 +1,265 @@
+{
+  "personalInfo": {
+    "name": "MD SHAFIUL ISLAM SHAFI",
+    "profession": "Full Stack Developer",
+    "age": "22 Years Old",
+    "city": "Dhaka",
+    "country": "Bangladesh",
+    "phone": "+880 1723054839",
+    "email": "islamshafiul741@gmail.com",
+    "languages": ["Bangla", "English"],
+    "status": "Available for Full Time & Freelance",
+    "experience": "2+ Years",
+    "about": "I am a full-stack web developer with expertise in both frontend and backend development. I build responsive and engaging user interfaces using HTML, CSS, JavaScript, React.js, and Vue.js. On the backend, I work with Node.js, MongoDB, and Oracle to build scalable and efficient systems. I'm passionate about learning new technologies and creating user-friendly, functional web applications."
+  },
+  "experience": [
+    {
+      "id": 1,
+      "year": "2025 - Present",
+      "position": "Full Stack Developer",
+      "company": "LS SOFT",
+      "type": "Full Time",
+      "description": "Skilled Full Stack Developer in frontend and backend development. Creating scalable web applications using modern technologies.",
+      "technologies": ["React.js", "Node.js", "MongoDB", "Express.js"],
+      "icon": "bx-code-alt"
+    },
+    {
+      "id": 2,
+      "year": "2025 - Present",
+      "position": "Backend Developer",
+      "company": "LS SOFT",
+      "type": "Full Time",
+      "description": "Skilled Backend Developer proficient in server, database, and application logic. Building robust RESTful APIs and managing databases.",
+      "technologies": ["Node.js", "MongoDB", "Oracle", "API Development"],
+      "icon": "bx-server"
+    },
+    {
+      "id": 3,
+      "year": "2025 - Present",
+      "position": "Frontend Developer",
+      "company": "LS SOFT",
+      "type": "Full Time",
+      "description": "Skilled Frontend Developer proficient in creating attractive and user-friendly interfaces. Implementing responsive designs and optimizing user experience.",
+      "technologies": ["React.js", "Vue.js", "Tailwind CSS", "JavaScript"],
+      "icon": "bx-paint"
+    },
+    {
+      "id": 4,
+      "year": "2024 - Present",
+      "position": "Android Developer",
+      "company": "LS SOFT",
+      "type": "Full Time",
+      "description": "Skilled Android Developer experienced in mobile app development and user experience. Creating native Android applications with modern UI/UX.",
+      "technologies": ["Java", "Android SDK", "Firebase", "XML"],
+      "icon": "bxl-android"
+    }
+  ],
+  "education": [
+    {
+      "id": 1,
+      "year": "2024 - 2028",
+      "degree": "Bachelor of Computer Science",
+      "institution": "University of Scholars",
+      "level": "Bachelor's Degree",
+      "description": "Comprehensive study in computer science fundamentals, software engineering, database systems, and web technologies.",
+      "highlights": ["GPA: Excellent", "Relevant Coursework"],
+      "icon": "bx-graduation"
+    },
+    {
+      "id": 2,
+      "year": "2029 - 2030",
+      "degree": "Master of Computer Science",
+      "institution": "University of Scholars",
+      "level": "Master's Degree",
+      "description": "Advanced studies in computer science with focus on software architecture, advanced algorithms, and emerging technologies.",
+      "highlights": ["Advanced Research", "Thesis Work"],
+      "icon": "bxs-graduation"
+    },
+    {
+      "id": 3,
+      "year": "2024 - Present",
+      "degree": "Web Development Bootcamp",
+      "institution": "Online Course Platform",
+      "level": "Certification",
+      "description": "Intensive bootcamp covering full-stack web development, modern frameworks, and industry best practices.",
+      "highlights": ["Full Stack", "Project-based"],
+      "icon": "bx-certificate"
+    },
+    {
+      "id": 4,
+      "year": "2024",
+      "degree": "Certified Web Development",
+      "institution": "Online Course",
+      "level": "Certification",
+      "description": "Professional certification in modern web development technologies and frameworks.",
+      "highlights": ["Industry Standard", "Verified Credential"],
+      "icon": "bx-award"
+    },
+    {
+      "id": 5,
+      "year": "2024",
+      "degree": "Programming Course",
+      "institution": "Online Course",
+      "level": "Course",
+      "description": "Fundamental programming concepts, data structures, algorithms, and problem-solving techniques.",
+      "highlights": ["Core Concepts", "Hands-on Practice"],
+      "icon": "bx-palette"
+    },
+    {
+      "id": 6,
+      "year": "2017 - 2018",
+      "degree": "Certified Graphic Design",
+      "institution": "Online Class",
+      "level": "Certification",
+      "description": "Professional graphic design training covering design principles, tools, and visual communication.",
+      "highlights": ["Design Tools", "Creative Skills"],
+      "icon": "bx-paint"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Frontend Technologies",
+      "items": [
+        {"name": "HTML5", "level": 95, "icon": "bxl-html5"},
+        {"name": "CSS3", "level": 90, "icon": "bxl-css3"},
+        {"name": "JavaScript", "level": 88, "icon": "bxl-javascript"},
+        {"name": "React.js", "level": 85, "icon": "bxl-react"},
+        {"name": "Vue.js", "level": 80, "icon": "bxl-vuejs"},
+        {"name": "Tailwind CSS", "level": 90, "icon": "bxl-tailwind-css"},
+        {"name": "Bootstrap", "level": 88, "icon": "bootstrap", "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg"}
+      ]
+    },
+    {
+      "category": "Backend Technologies",
+      "items": [
+        {"name": "Node.js", "level": 85, "icon": "bxl-nodejs"},
+        {"name": "MongoDB", "level": 82, "icon": "bxl-mongodb"},
+        {"name": "Oracle", "level": 75, "icon": "oracle", "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg"},
+        {"name": "Express.js", "level": 83, "icon": "bx-server"}
+      ]
+    },
+    {
+      "category": "Other Skills",
+      "items": [
+        {"name": "Android", "level": 78, "icon": "bxl-android"},
+        {"name": "Git", "level": 85, "icon": "bxl-git"}
+      ]
+    }
+  ],
+  "certificates": [
+    {
+      "id": 1,
+      "title": "Web Development Certification",
+      "institution": "Online Platform",
+      "year": "2024",
+      "description": "Professional web development certification",
+      "image": "image/cert1.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Full Stack Developer",
+      "institution": "Professional Certification",
+      "year": "2024",
+      "description": "Complete full-stack development certification",
+      "image": "image/cert2.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Best Project Award",
+      "institution": "Tech Innovation Summit",
+      "year": "2024",
+      "description": "Award for outstanding project in tech innovation",
+      "image": "image/cert3.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Graphic Design Certificate",
+      "institution": "Online Course",
+      "year": "2018",
+      "description": "Professional graphic design certification",
+      "image": "image/cert4.jpg"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "Frontend Project",
+      "description": "Modern responsive web application with interactive UI components",
+      "tech": ["HTML5", "CSS3", "JavaScript"],
+      "image": "image/portfolio1.jpg",
+      "liveLink": "#",
+      "githubLink": "#",
+      "category": "Frontend"
+    },
+    {
+      "id": 2,
+      "title": "Full Stack Project",
+      "description": "Complete web application with frontend and backend integration",
+      "tech": ["MongoDB", "Express.js", "React.js", "Node.js"],
+      "image": "image/portfolio2.jpg",
+      "liveLink": "#",
+      "githubLink": "#",
+      "category": "Full Stack"
+    },
+    {
+      "id": 3,
+      "title": "Frontend Project",
+      "description": "React-based single page application with modern design",
+      "tech": ["React.js", "Tailwind CSS"],
+      "image": "image/portfolio3.jpg",
+      "liveLink": "#",
+      "githubLink": "#",
+      "category": "Frontend"
+    },
+    {
+      "id": 4,
+      "title": "Full Stack Project",
+      "description": "Dynamic web platform with real-time features",
+      "tech": ["HTML5", "Tailwind", "JavaScript"],
+      "image": "image/portfolio4.jpg",
+      "liveLink": "#",
+      "githubLink": "#",
+      "category": "Full Stack"
+    },
+    {
+      "id": 5,
+      "title": "Backend Project",
+      "description": "RESTful API with database integration",
+      "tech": ["MongoDB", "Express.js"],
+      "image": "image/portfolio5.jpg",
+      "liveLink": "#",
+      "githubLink": "#",
+      "category": "Backend"
+    },
+    {
+      "id": 6,
+      "title": "Full Stack Project",
+      "description": "Vue.js application with Node.js backend",
+      "tech": ["Vue.js", "Node.js", "Express.js"],
+      "image": "image/portfolio6.jpg",
+      "liveLink": "#",
+      "githubLink": "#",
+      "category": "Full Stack"
+    },
+    {
+      "id": 7,
+      "title": "Android Project",
+      "description": "Native Android App with modern UI and Firebase integration",
+      "tech": ["Java", "XML", "Firebase"],
+      "image": "image/portfolio.7.jpg",
+      "liveLink": "#",
+      "githubLink": "#",
+      "category": "Mobile"
+    }
+  ],
+  "statistics": {
+    "projects": 50,
+    "clients": 30,
+    "awards": 15,
+    "coffee": 500
+  }
+}
+
+
+
+

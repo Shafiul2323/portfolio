@@ -1,3 +1,7 @@
+
+
+<!-- check -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,32 +19,30 @@
 <body>
 
     <!-- header -->
-    <header class="active">
+    <header class="active" style="visibility: visible; opacity: 1;">
         <a href="#" class="logo">  MD SHAFIUL ISLAM SHAFI</a>
 
         <i class='bx bx-menu' id="menu-icon"></i>
 
         <nav>
-            <a href="#" class="active">Home</a>
-            <a href="#">Services</a>
-            <a href="#">Resume</a>
-            <a href="#">Portfolio</a>
-            <a href="#">Contact</a>
+            <a href="#" class="active" data-section="home">Home</a>
+            
+            <a href="#" data-section="services">Services</a>
+            <a href="#" data-section="resume">Resume</a>
+            <a href="#" data-section="portfolio">Portfolio</a>
+            <a href="#" data-section="about">About Me</a>
+            <a href="#" data-section="contact">Contact</a>
         </nav>
     </header>
 
-    <!-- bars background -->
-    <div class="bars-box active">
-        <div class="bar" style="--i:6"></div>
-        <div class="bar" style="--i:5"></div>
-        <div class="bar" style="--i:4"></div>
-        <div class="bar" style="--i:3"></div>
-        <div class="bar" style="--i:2"></div>
-        <div class="bar" style="--i:1"></div>
-    </div>
+    <!-- Scroll to Top Button (Fixed Position) -->
+    <button class="scroll-top" id="scrollTop" title="Scroll to Top">
+        <i class='bx bx-up-arrow-alt'></i>
+    </button>
+
 
    <!-- home section -->
-<section class="home active">
+<section class="home active section">
     <div class="home-detail">
         <h1> SHAFIUL ISLAM </h1>
         <h2>I'm a
@@ -78,8 +80,42 @@
     </div>
 </section>
 
+    <!-- Statistics Section -->
+    <section class="statistics section">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class='bx bx-code-alt'></i>
+                </div>
+                <div class="stat-number" data-target="50">0</div>
+                <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class='bx bx-user'></i>
+                </div>
+                <div class="stat-number" data-target="30">0</div>
+                <div class="stat-label">Happy Clients</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class='bx bx-trophy'></i>
+                </div>
+                <div class="stat-number" data-target="15">0</div>
+                <div class="stat-label">Awards Won</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class='bx bx-coffee'></i>
+                </div>
+                <div class="stat-number" data-target="500">0</div>
+                <div class="stat-label">Cups of Coffee</div>
+            </div>
+        </div>
+    </section>
+
     <!-- services section -->
-    <section class="services ">
+    <section class="services section">
         <h2 class="heading">My <span>Services</span></h2>
         <div class="services-container">
             <div class="services-box">
@@ -139,202 +175,677 @@
     </section>
 
     <!-- resume section -->
-    <section class="resume ">
+    <section class="resume section">
             <div class="resume-container">
                 <div class="resume-box">
                     <h2>Why Hire Me?</h2>
                     <p class="desc">I’m a skilled and responsible software developer with hands-on experience in frontend, backend, and mobile app development. I focus on clean design, timely delivery, and effective teamwork. I’m committed to delivering smart, user-friendly, and scalable solutions that match client needs</p>
-                    <button class="resume-btn active">Experience</button>
-                    <button class="resume-btn">Education</button>
-                    <button class="resume-btn">Skills</button>
-                    <button class="resume-btn">About Me</button>
+                    <button class="resume-btn active" data-tab="experience">Experience</button>
+                    <button class="resume-btn" data-tab="education">Education</button>
+                    <button class="resume-btn" data-tab="skills">Skills</button>
+                    <button class="resume-btn" data-tab="certificates">Certificates</button>
                 </div>
 
                 <div class="resume-box">
-                    <div class="resume-detail experience active">
-                        <h2 class="heading">My <span>Experience</span></h2>
-                        <p class="desc">Worked on real-world software projects, providing technical support and resolving client issues.
-                                         Assisted in bug fixing, software testing, and deployment.
-                                          Ensured smooth system performance and contributed to continuous improvement.
-                                        Gained valuable experience collaborating with developers and end-users</p>
-                        <div class="resume-list">
-                            <div class="resume-item">
-                                <p class="year">2025 - Present</p>
+                    <div class="resume-detail experience active" id="experienceDetail">
+                        <div class="section-header">
+                            <div>
+                                <h2 class="heading">My <span>Experience</span></h2>
+                                <p class="desc">Worked on real-world software projects, providing technical support and resolving client issues. Assisted in bug fixing, software testing, and deployment.</p>
+                            </div>
+                            <button class="add-item-btn" onclick="openAddForm('experience')">
+                                <i class='bx bx-plus-circle'></i> Add Experience
+                            </button>
+                        </div>
+                        <div class="resume-list" id="experienceList">
+                            <div class="resume-item experience-card" data-exp-id="1">
+                                <div class="resume-item-header">
+                                    <div class="resume-icon">
+                                        <i class='bx bx-code-alt'></i>
+                                    </div>
+                                    <div class="resume-meta">
+                                        <span class="year-badge">2025 - Present</span>
+                                        <span class="job-type">Full Time</span>
+                                    </div>
+                                </div>
                                 <h3>Full Stack Developer</h3>
-                                <p class="company">LS SOFT</p>
-                                <p>Skilled Full Stack Developer in frontend and backend</p>
+                                <p class="company"><i class='bx bx-buildings'></i> LS SOFT</p>
+                                <p class="job-description">Skilled Full Stack Developer in frontend and backend development. Creating scalable web applications using modern technologies.</p>
+                                <div class="job-tags">
+                                    <span class="tag">React.js</span>
+                                    <span class="tag">Node.js</span>
+                                    <span class="tag">MongoDB</span>
+                                    <span class="tag">Express.js</span>
+                                </div>
                             </div>
-                            <div class="resume-item">
-                                <p class="year">2025- Present</p>
+                            
+                            <div class="resume-item experience-card" data-exp-id="2">
+                                <div class="resume-item-header">
+                                    <div class="resume-icon">
+                                        <i class='bx bx-server'></i>
+                                    </div>
+                                    <div class="resume-meta">
+                                        <span class="year-badge">2025 - Present</span>
+                                        <span class="job-type">Full Time</span>
+                                    </div>
+                                </div>
                                 <h3>Backend Developer</h3>
-                                <p class="company">LS SOFT</p>
-                                <p>Skilled Backend Developer proficient in server, database, and application logic</p>
+                                <p class="company"><i class='bx bx-buildings'></i> LS SOFT</p>
+                                <p class="job-description">Skilled Backend Developer proficient in server, database, and application logic. Building robust RESTful APIs and managing databases.</p>
+                                <div class="job-tags">
+                                    <span class="tag">Node.js</span>
+                                    <span class="tag">MongoDB</span>
+                                    <span class="tag">Oracle</span>
+                                    <span class="tag">API Development</span>
+                                </div>
                             </div>
-                            <div class="resume-item">
-                                <p class="year">2025 - Present</p>
+                            
+                            <div class="resume-item experience-card" data-exp-id="3">
+                                <div class="resume-item-header">
+                                    <div class="resume-icon">
+                                        <i class='bx bx-paint'></i>
+                                    </div>
+                                    <div class="resume-meta">
+                                        <span class="year-badge">2025 - Present</span>
+                                        <span class="job-type">Full Time</span>
+                                    </div>
+                                </div>
                                 <h3>Frontend Developer</h3>
-                                <p class="company"> LS SOFT</p>
-                                <p>Skilled Frontend Developer proficient in creating attractive and user-friendly interfaces</p>
+                                <p class="company"><i class='bx bx-buildings'></i> LS SOFT</p>
+                                <p class="job-description">Skilled Frontend Developer proficient in creating attractive and user-friendly interfaces. Implementing responsive designs and optimizing user experience.</p>
+                                <div class="job-tags">
+                                    <span class="tag">React.js</span>
+                                    <span class="tag">Vue.js</span>
+                                    <span class="tag">Tailwind CSS</span>
+                                    <span class="tag">JavaScript</span>
+                                </div>
                             </div>
-                            <div class="resume-item">
-                                <p class="year">2024 - Present</p>
-                                <h3> Android Developer</h3>
-                                <p class="company">LS SOFT</p>
-                                <p>Skilled Android Developer experienced in mobile app development and user experience</p>
+                            
+                            <div class="resume-item experience-card" data-exp-id="4">
+                                <div class="resume-item-header">
+                                    <div class="resume-icon">
+                                        <i class='bx bxl-android'></i>
+                                    </div>
+                                    <div class="resume-meta">
+                                        <span class="year-badge">2024 - Present</span>
+                                        <span class="job-type">Full Time</span>
+                                    </div>
+                                </div>
+                                <h3>Android Developer</h3>
+                                <p class="company"><i class='bx bx-buildings'></i> LS SOFT</p>
+                                <p class="job-description">Skilled Android Developer experienced in mobile app development and user experience. Creating native Android applications with modern UI/UX.</p>
+                                <div class="job-tags">
+                                    <span class="tag">Java</span>
+                                    <span class="tag">Android SDK</span>
+                                    <span class="tag">Firebase</span>
+                                    <span class="tag">XML</span>
+                                </div>
                             </div>
-                           
-    
                         </div>
                     </div>
                           <!-- EDUCATION PART-->
 
 
-                    <div class="resume-detail education">
-                        <h2 class="heading">My <span>Education</span></h2>
-                        <p class="desc"></p>
-                        <div class="resume-list">
-                            <div class="resume-item">
-                                <p class="year">2024</p>
-                                <h3>Programming Course</h3>
-                                <p class="company">Online Course</p>
-                                <p></p>
+                    <div class="resume-detail education" id="educationDetail">
+                        <div class="section-header">
+                            <div>
+                                <h2 class="heading">My <span>Education</span></h2>
+                                <p class="desc">My educational journey includes formal degrees and professional certifications that have shaped my expertise in computer science and web development.</p>
                             </div>
-                            <div class="resume-item">
-                                <p class="year">2024- Present</p>
-                                <h3>Web Development Bootcamp</h3>
-                                <p class="company">Online Course Platfrom</p>
-                                <p></p>
-                            </div>
-                            <div class="resume-item">
-                                <p class="year">Present</p>
-                                <h3>Certified Web Development</h3>
-                                <p class="company">Online Course</p>
-                                <p></p>
-                            </div>
-                            <div class="resume-item">
-                                <p class="year">2017 - 2018</p>
-                                <h3>Certified Graphic Design</h3>
-                                <p class="company">Online Class</p>
-                                <p></p>
-                            </div>
-                            <div class="resume-item">
-                                <p class="year">2029- 2030</p>
-                                <h3>Master of Computer Science</h3>
-                                <p class="company">University of Scholers</p>
-                                <p></p>
-                            </div>
-                            <div class="resume-item">
-                                <p class="year">2024 - 2028</p>
+                            <button class="add-item-btn" onclick="openAddForm('education')">
+                                <i class='bx bx-plus-circle'></i> Add Education
+                            </button>
+                        </div>
+                        <div class="resume-list education-list" id="educationList">
+                            <div class="resume-item education-card" data-edu-id="1">
+                                <div class="education-header">
+                                    <div class="education-icon">
+                                        <i class='bx bx-graduation'></i>
+                                    </div>
+                                    <div class="education-meta">
+                                        <span class="year-badge">2024 - 2028</span>
+                                        <span class="degree-level">Bachelor's Degree</span>
+                                    </div>
+                                </div>
                                 <h3>Bachelor of Computer Science</h3>
-                                <p class="company">University of Scholers</p>
-                                <p></p>
+                                <p class="company"><i class='bx bx-buildings'></i> University of Scholars</p>
+                                <p class="education-description">Comprehensive study in computer science fundamentals, software engineering, database systems, and web technologies.</p>
+                                <div class="education-highlights">
+                                    <span class="highlight"><i class='bx bx-check-circle'></i> GPA: Excellent</span>
+                                    <span class="highlight"><i class='bx bx-check-circle'></i> Relevant Coursework</span>
+                                </div>
+                            </div>
+                            
+                            <div class="resume-item education-card" data-edu-id="2">
+                                <div class="education-header">
+                                    <div class="education-icon">
+                                        <i class='bx bxs-graduation'></i>
+                                    </div>
+                                    <div class="education-meta">
+                                        <span class="year-badge">2029 - 2030</span>
+                                        <span class="degree-level">Master's Degree</span>
+                                    </div>
+                                </div>
+                                <h3>Master of Computer Science</h3>
+                                <p class="company"><i class='bx bx-buildings'></i> University of Scholars</p>
+                                <p class="education-description">Advanced studies in computer science with focus on software architecture, advanced algorithms, and emerging technologies.</p>
+                                <div class="education-highlights">
+                                    <span class="highlight"><i class='bx bx-check-circle'></i> Advanced Research</span>
+                                    <span class="highlight"><i class='bx bx-check-circle'></i> Thesis Work</span>
+                                </div>
+                            </div>
+                            
+                            <div class="resume-item education-card" data-edu-id="3">
+                                <div class="education-header">
+                                    <div class="education-icon">
+                                        <i class='bx bx-certificate'></i>
+                                    </div>
+                                    <div class="education-meta">
+                                        <span class="year-badge">2024 - Present</span>
+                                        <span class="degree-level">Certification</span>
+                                    </div>
+                                </div>
+                                <h3>Web Development Bootcamp</h3>
+                                <p class="company"><i class='bx bx-globe'></i> Online Course Platform</p>
+                                <p class="education-description">Intensive bootcamp covering full-stack web development, modern frameworks, and industry best practices.</p>
+                                <div class="education-highlights">
+                                    <span class="highlight"><i class='bx bx-check-circle'></i> Full Stack</span>
+                                    <span class="highlight"><i class='bx bx-check-circle'></i> Project-based</span>
+                                </div>
+                            </div>
+                            
+                            <div class="resume-item education-card" data-edu-id="4">
+                                <div class="education-header">
+                                    <div class="education-icon">
+                                        <i class='bx bx-award'></i>
+                                    </div>
+                                    <div class="education-meta">
+                                        <span class="year-badge">2024</span>
+                                        <span class="degree-level">Certification</span>
+                                    </div>
+                                </div>
+                                <h3>Certified Web Development</h3>
+                                <p class="company"><i class='bx bx-globe'></i> Online Course</p>
+                                <p class="education-description">Professional certification in modern web development technologies and frameworks.</p>
+                                <div class="education-highlights">
+                                    <span class="highlight"><i class='bx bx-check-circle'></i> Industry Standard</span>
+                                    <span class="highlight"><i class='bx bx-check-circle'></i> Verified Credential</span>
+                                </div>
+                            </div>
+                            
+                            <div class="resume-item education-card" data-edu-id="5">
+                                <div class="education-header">
+                                    <div class="education-icon">
+                                        <i class='bx bx-palette'></i>
+                                    </div>
+                                    <div class="education-meta">
+                                        <span class="year-badge">2024</span>
+                                        <span class="degree-level">Course</span>
+                                    </div>
+                                </div>
+                                <h3>Programming Course</h3>
+                                <p class="company"><i class='bx bx-globe'></i> Online Course</p>
+                                <p class="education-description">Fundamental programming concepts, data structures, algorithms, and problem-solving techniques.</p>
+                                <div class="education-highlights">
+                                    <span class="highlight"><i class='bx bx-check-circle'></i> Core Concepts</span>
+                                    <span class="highlight"><i class='bx bx-check-circle'></i> Hands-on Practice</span>
+                                </div>
+                            </div>
+                            
+                            <div class="resume-item education-card" data-edu-id="6">
+                                <div class="education-header">
+                                    <div class="education-icon">
+                                        <i class='bx bx-paint'></i>
+                                    </div>
+                                    <div class="education-meta">
+                                        <span class="year-badge">2017 - 2018</span>
+                                        <span class="degree-level">Certification</span>
+                                    </div>
+                                </div>
+                                <h3>Certified Graphic Design</h3>
+                                <p class="company"><i class='bx bx-globe'></i> Online Class</p>
+                                <p class="education-description">Professional graphic design training covering design principles, tools, and visual communication.</p>
+                                <div class="education-highlights">
+                                    <span class="highlight"><i class='bx bx-check-circle'></i> Design Tools</span>
+                                    <span class="highlight"><i class='bx bx-check-circle'></i> Creative Skills</span>
+                                </div>
                             </div>
                         </div>
                     </div>
- <div class="resume-detail skills">
-    <h2 class="heading">My <span>Skills</span></h2>
-    <p class="desc">Skilled in both frontend and backend development using React.js, Vue.js, Tailwind CSS, Node.js, MongoDB, and Oracle to build responsive and efficient web applications</p>
-    
-    <!-- Grid container -->
-    <div class="resume-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;">
-        
-        <div class="resume-item" style="display: flex; align-items: center; gap: 10px;">
-            <i class='bx bxl-html5' style="font-size: 24px;"></i>
-            <span>HTML5</span>
-        </div>
-
-        <div class="resume-item" style="display: flex; align-items: center; gap: 10px;">
-            <i class='bx bxl-css3' style="font-size: 24px;"></i>
-            <span>CSS3</span>
-        </div>
-
-        <div class="resume-item" style="display: flex; align-items: center; gap: 10px;">
-            <i class='bx bxl-javascript' style="font-size: 24px;"></i>
-            <span>JavaScript</span>
-        </div>
-
-        <div class="resume-item" style="display: flex; align-items: center; gap: 10px;">
-            <i class='bx bxl-react' style="font-size: 24px;"></i>
-            <span>React.js</span>
-        </div>
-
-        <div class="resume-item" style="display: flex; align-items: center; gap: 10px;">
-            <i class='bx bxl-vuejs' style="font-size: 24px;"></i>
-            <span>Vue.js</span>
-        </div>
-
-        <div class="resume-item" style="display: flex; align-items: center; gap: 10px;">
-            <i class='bx bxl-tailwind-css' style="font-size: 24px;"></i>
-            <span>Tailwind CSS</span>
-        </div>
-
-        <div class="resume-item" style="display: flex; align-items: center; gap: 10px;">
-            <i class='bx bxl-nodejs' style="font-size: 24px;"></i>
-            <span>Node.js</span>
-        </div>
-
-        <div class="resume-item" style="display: flex; align-items: center; gap: 10px;">
-            <i class='bx bxl-mongodb' style="font-size: 24px;"></i>
-            <span>MongoDB</span>
-        </div>
-
-        <div class="resume-item" style="display: flex; align-items: center; gap: 10px;">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle Logo" style="width: 24px; height: 24px;">
-            <span>Oracle</span>
-        </div>
-
-        <div class="resume-item" style="display: flex; align-items: center; gap: 10px;">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap Logo" style="width: 24px; height: 24px;">
-            <span>Bootstrap</span>
-        </div>
-    </div>
-</div>
-
-
-                    <!-----------ABOUT PART-------->
-
-                    <div class="resume-detail about">
-                        <h2 class="heading">About <span>Me</span></h2>
-                        <p class="desc">I am a full-stack web developer with expertise in both frontend and backend development. I build responsive and engaging user interfaces using HTML, CSS, JavaScript, React.js, and Vue.js. On the backend, I work with Node.js, MongoDB, and Oracle to build scalable and efficient systems. I’m passionate about learning new technologies and creating user-friendly, functional web applications.</p>
-                        <div class="resume-list">
-                            <div class="resume-item">
-                                <p>Name <span>MD SHAFIUL ISLAM SHAFI</span></p>
+                    <div class="resume-detail skills" id="skillsDetail">
+                        <div class="section-header">
+                            <div>
+                                <h2 class="heading">My <span>Skills</span></h2>
+                                <p class="desc">Skilled in both frontend and backend development using modern technologies to build responsive and efficient web applications</p>
                             </div>
-                            <div class="resume-item">
-                                <p>Gender <span>Male</span></p>
+                            <button class="add-item-btn" onclick="openAddForm('skills')">
+                                <i class='bx bx-plus-circle'></i> Add Skill
+                            </button>
+                        </div>
+                        
+                        <div class="skills-container" id="skillsContainer">
+                            <!-- Programming Languages -->
+                            <div class="skill-category">
+                                <h3>💻 Programming Languages</h3>
+                                <div class="skills-grid">
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-code-alt'></i>
+                                        </div>
+                                        <span class="skill-name">C</span>
+                                        <div class="skill-level" data-level="85">
+                                            <div class="skill-progress" data-level="85"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-code-alt'></i>
+                                        </div>
+                                        <span class="skill-name">C++</span>
+                                        <div class="skill-level" data-level="88">
+                                            <div class="skill-progress" data-level="88"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bxl-javascript'></i>
+                                        </div>
+                                        <span class="skill-name">JavaScript (ES6+)</span>
+                                        <div class="skill-level" data-level="90">
+                                            <div class="skill-progress" data-level="90"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bxl-python'></i>
+                                        </div>
+                                        <span class="skill-name">Python</span>
+                                        <div class="skill-level" data-level="82">
+                                            <div class="skill-progress" data-level="82"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="resume-item">
-                                <p>Age <span>22Years Old</span></p>
+
+                            <!-- Web Technologies -->
+                            <div class="skill-category">
+                                <h3>🌐 Web Technologies</h3>
+                                <div class="skills-grid">
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bxl-html5'></i>
+                                        </div>
+                                        <span class="skill-name">HTML5</span>
+                                        <div class="skill-level" data-level="95">
+                                            <div class="skill-progress" data-level="95"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bxl-css3'></i>
+                                        </div>
+                                        <span class="skill-name">CSS3</span>
+                                        <div class="skill-level" data-level="90">
+                                            <div class="skill-progress" data-level="90"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap">
+                                        </div>
+                                        <span class="skill-name">Bootstrap</span>
+                                        <div class="skill-level" data-level="88">
+                                            <div class="skill-progress" data-level="88"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bxl-tailwind-css'></i>
+                                        </div>
+                                        <span class="skill-name">Tailwind CSS</span>
+                                        <div class="skill-level" data-level="90">
+                                            <div class="skill-progress" data-level="90"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bxl-react'></i>
+                                        </div>
+                                        <span class="skill-name">React.js</span>
+                                        <div class="skill-level" data-level="85">
+                                            <div class="skill-progress" data-level="85"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bxl-nodejs'></i>
+                                        </div>
+                                        <span class="skill-name">Node.js</span>
+                                        <div class="skill-level" data-level="85">
+                                            <div class="skill-progress" data-level="85"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-server'></i>
+                                        </div>
+                                        <span class="skill-name">Express.js</span>
+                                        <div class="skill-level" data-level="83">
+                                            <div class="skill-progress" data-level="83"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="resume-item">
-                                <p>Status <span>Unmarried</span></p>
+
+                            <!-- Databases -->
+                            <div class="skill-category">
+                                <h3>💾 Databases</h3>
+                                <div class="skills-grid">
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-data'></i>
+                                        </div>
+                                        <span class="skill-name">MySQL</span>
+                                        <div class="skill-level" data-level="80">
+                                            <div class="skill-progress" data-level="80"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bxl-mongodb'></i>
+                                        </div>
+                                        <span class="skill-name">MongoDB</span>
+                                        <div class="skill-level" data-level="82">
+                                            <div class="skill-progress" data-level="82"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle">
+                                        </div>
+                                        <span class="skill-name">Oracle</span>
+                                        <div class="skill-level" data-level="75">
+                                            <div class="skill-progress" data-level="75"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="resume-item">
-                                
- 
-                                 <p>City <span>DhakA;</span></p>
+
+                            <!-- Tools & Technologies -->
+                            <div class="skill-category">
+                                <h3>⚙ Tools & Technologies</h3>
+                                <div class="skills-grid">
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-code-block'></i>
+                                        </div>
+                                        <span class="skill-name">VS Code</span>
+                                        <div class="skill-level" data-level="95">
+                                            <div class="skill-progress" data-level="95"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bxl-git'></i>
+                                        </div>
+                                        <span class="skill-name">Git</span>
+                                        <div class="skill-level" data-level="85">
+                                            <div class="skill-progress" data-level="85"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bxl-github'></i>
+                                        </div>
+                                        <span class="skill-name">GitHub</span>
+                                        <div class="skill-level" data-level="88">
+                                            <div class="skill-progress" data-level="88"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bxl-gitlab'></i>
+                                        </div>
+                                        <span class="skill-name">GitLab</span>
+                                        <div class="skill-level" data-level="80">
+                                            <div class="skill-progress" data-level="80"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-layer'></i>
+                                        </div>
+                                        <span class="skill-name">Figma</span>
+                                        <div class="skill-level" data-level="75">
+                                            <div class="skill-progress" data-level="75"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-paint'></i>
+                                        </div>
+                                        <span class="skill-name">Adobe Photoshop</span>
+                                        <div class="skill-level" data-level="80">
+                                            <div class="skill-progress" data-level="80"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="resume-item">
-                                <p>Nationality <span>Bangladeshi</span></p>
+
+                            <!-- Frameworks & Libraries -->
+                            <div class="skill-category">
+                                <h3>🧩 Frameworks & Libraries</h3>
+                                <div class="skills-grid">
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-navigation'></i>
+                                        </div>
+                                        <span class="skill-name">React Router</span>
+                                        <div class="skill-level" data-level="85">
+                                            <div class="skill-progress" data-level="85"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-network-chart'></i>
+                                        </div>
+                                        <span class="skill-name">Axios</span>
+                                        <div class="skill-level" data-level="88">
+                                            <div class="skill-progress" data-level="88"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-server'></i>
+                                        </div>
+                                        <span class="skill-name">Express.js</span>
+                                        <div class="skill-level" data-level="83">
+                                            <div class="skill-progress" data-level="83"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bxl-tailwind-css'></i>
+                                        </div>
+                                        <span class="skill-name">Tailwind CSS</span>
+                                        <div class="skill-level" data-level="90">
+                                            <div class="skill-progress" data-level="90"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap">
+                                        </div>
+                                        <span class="skill-name">Bootstrap</span>
+                                        <div class="skill-level" data-level="88">
+                                            <div class="skill-progress" data-level="88"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="resume-item">
-                                <p>Experience <span>2+ Years</span></p>
+
+                            <!-- Hosting & Deployment Platforms -->
+                            <div class="skill-category">
+                                <h3>☁ Hosting & Deployment</h3>
+                                <div class="skills-grid">
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-cloud-upload'></i>
+                                        </div>
+                                        <span class="skill-name">Vercel</span>
+                                        <div class="skill-level" data-level="88">
+                                            <div class="skill-progress" data-level="88"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-cloud'></i>
+                                        </div>
+                                        <span class="skill-name">Netlify</span>
+                                        <div class="skill-level" data-level="85">
+                                            <div class="skill-progress" data-level="85"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bxl-github'></i>
+                                        </div>
+                                        <span class="skill-name">GitHub Pages</span>
+                                        <div class="skill-level" data-level="90">
+                                            <div class="skill-progress" data-level="90"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-server'></i>
+                                        </div>
+                                        <span class="skill-name">Render</span>
+                                        <div class="skill-level" data-level="80">
+                                            <div class="skill-progress" data-level="80"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="resume-item">
-                                <p>Full Time <span>Available</span></p>
+
+                            <!-- Basic Knowledge -->
+                            <div class="skill-category">
+                                <h3>🔐 Basic Knowledge</h3>
+                                <div class="skills-grid">
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-globe'></i>
+                                        </div>
+                                        <span class="skill-name">RESTful API</span>
+                                        <div class="skill-level" data-level="85">
+                                            <div class="skill-progress" data-level="85"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-code'></i>
+                                        </div>
+                                        <span class="skill-name">JSON</span>
+                                        <div class="skill-level" data-level="92">
+                                            <div class="skill-progress" data-level="92"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-key'></i>
+                                        </div>
+                                        <span class="skill-name">JWT</span>
+                                        <div class="skill-level" data-level="80">
+                                            <div class="skill-progress" data-level="80"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-fire'></i>
+                                        </div>
+                                        <span class="skill-name">Firebase Auth</span>
+                                        <div class="skill-level" data-level="82">
+                                            <div class="skill-progress" data-level="82"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bxs-data'></i>
+                                        </div>
+                                        <span class="skill-name">CRUD Operations</span>
+                                        <div class="skill-level" data-level="88">
+                                            <div class="skill-progress" data-level="88"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="resume-item">
-                                <p>Freelance <span>Available</span></p>
+
+                            <!-- Soft Skills -->
+                            <div class="skill-category">
+                                <h3>🤝 Soft Skills</h3>
+                                <div class="skills-grid">
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-group'></i>
+                                        </div>
+                                        <span class="skill-name">Teamwork</span>
+                                        <div class="skill-level" data-level="90">
+                                            <div class="skill-progress" data-level="90"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-brain'></i>
+                                        </div>
+                                        <span class="skill-name">Problem Solving</span>
+                                        <div class="skill-level" data-level="88">
+                                            <div class="skill-progress" data-level="88"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-trophy'></i>
+                                        </div>
+                                        <span class="skill-name">Leadership</span>
+                                        <div class="skill-level" data-level="85">
+                                            <div class="skill-progress" data-level="85"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-refresh'></i>
+                                        </div>
+                                        <span class="skill-name">Adaptability</span>
+                                        <div class="skill-level" data-level="87">
+                                            <div class="skill-progress" data-level="87"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class='bx bx-message'></i>
+                                        </div>
+                                        <span class="skill-name">Communication</span>
+                                        <div class="skill-level" data-level="86">
+                                            <div class="skill-progress" data-level="86"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="resume-item">
-                                <p>Phone <span>+880 1723054839</span></p>
+                        </div>
+                    </div>
+                
+                    <!-- Certificates Section in Resume -->
+                    <div class="resume-detail certificates" id="certificatesDetail">
+                        <div class="section-header">
+                            <div>
+                                <h2 class="heading">My <span>Certificates</span></h2>
+                                <p class="desc">My professional certifications and awards that demonstrate my expertise and achievements</p>
                             </div>
-                            <div class="resume-item">
-                                <p>Email <span>islamshafiul741@gmail.com</span></p>
-                            </div>
-                            <div class="resume-item">
-                                <p>Languages <span>Bangla, English</span></p>
-                            </div>
+                            <button class="add-item-btn" onclick="openAddForm('certificates')">
+                                <i class='bx bx-plus-circle'></i> Add Certificate
+                            </button>
+                        </div>
+                        <div class="resume-list certificates-list" id="certificatesList">
+                            <!-- Certificates will be loaded dynamically -->
                         </div>
                     </div>
                 </div>
@@ -342,128 +853,38 @@
     </section>
 
     <!-- portfolio section -->
-   <section class="portfolio ">
-    <h2 class="heading">Latest <span>Project</span></h2>
+   <section class="portfolio section">
+    <h2 class="heading">Latest <span>Projects</span></h2>
+    <p class="section-subtitle">Showcasing my recent work and technical expertise</p>
+    
+    <!-- Add Project Button -->
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <button class="btn" onclick="openAddProjectForm()" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+            <i class='bx bx-plus'></i> Add New Project
+        </button>
+    </div>
+    
+    <!-- Project Filter -->
+    <div class="portfolio-filter">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="Frontend">Frontend</button>
+        <button class="filter-btn" data-filter="Backend">Backend</button>
+        <button class="filter-btn" data-filter="Full Stack">Full Stack</button>
+        <button class="filter-btn" data-filter="Mobile">Mobile</button>
+    </div>
+    
     <div class="portfolio-container">
         <div class="portfolio-box">
-            <div class="portfolio-detail active">
-                <p class="numb">01</p>
-                <h3>Frontend Project</h3>
-                <p></p>
-                <div class="tech">
-                    <p>HTML5, CSS3, JavaScript</p>
-                </div>
-                <div class="live-github">
-                    <a href="#"><i class='bx bx-arrow-back'></i><span>Live Project</span></a>
-                    <a href="#"><i class='bx bxl-github' ></i><span>Github Repository</span></a>
-                </div>
-            </div>
-
-            <div class="portfolio-detail">
-                <p class="numb">02</p>
-                <h3>Full Stack Project</h3>
-                <p></p>
-                <div class="tech">
-                    <p>MongoDB, Express.js, React.js, Node.js</p>
-                </div>
-                <div class="live-github">
-                    <a href="#"><i class='bx bx-arrow-back'></i><span>Live Project</span></a>
-                    <a href="#"><i class='bx bxl-github' ></i><span>Github Repository</span></a>
-                </div>
-            </div>
-
-            <div class="portfolio-detail">
-                <p class="numb">03</p>
-                <h3>Frontend Project</h3>
-                <p></p>
-                <div class="tech">
-                    <p>React.js, Tailwind CSS</p>
-                </div>
-                <div class="live-github">
-                    <a href="#"><i class='bx bx-arrow-back'></i><span>Live Project</span></a>
-                    <a href="#"><i class='bx bxl-github' ></i><span>Github Repository</span></a>
-                </div>
-            </div>
-
-            <div class="portfolio-detail">
-                <p class="numb">04</p>
-                <h3>Full Stack Project</h3>
-                <p></p>
-                <div class="tech">
-                    <p>HTML5, Tailwind, JavaScript</p>
-                </div>
-                <div class="live-github">
-                    <a href="#"><i class='bx bx-arrow-back'></i><span>Live Project</span></a>
-                    <a href="#"><i class='bx bxl-github' ></i><span>Github Repository</span></a>
-                </div>
-            </div>
-
-            <div class="portfolio-detail">
-                <p class="numb">05</p>
-                <h3>Frontend Project</h3>
-                <p></p>
-                <div class="tech">
-                    <p>MongoDB, Express.js</p>
-                </div>
-                <div class="live-github">
-                    <a href="#"><i class='bx bx-arrow-back'></i><span>Live Project</span></a>
-                    <a href="#"><i class='bx bxl-github' ></i><span>Github Repository</span></a>
-                </div>
-            </div>
-
-            <div class="portfolio-detail">
-                <p class="numb">06</p>
-                <h3>Full Stack Project</h3>
-                <p></p>
-                <div class="tech">
-                    <p>Vue.js, Node.js, Express.js</p>
-                </div>
-                <div class="live-github">
-                    <a href="#"><i class='bx bx-arrow-back'></i><span>Live Project</span></a>
-                    <a href="#"><i class='bx bxl-github' ></i><span>Github Repository</span></a>
-                </div>
-            </div>
-
-            <!-- New Android Project Added Here -->
-            <div class="portfolio-detail">
-                <p class="numb">07</p>
-                <h3>Android Project</h3>
-                <p>Native Android App using Java</p>
-                <div class="tech">
-                    <p>Java, XML, Firebase</p>
-                </div>
-                <div class="live-github">
-                    <a href="#"><i class='bx bx-arrow-back'></i><span>Live Project</span></a>
-                    <a href="#"><i class='bx bxl-github' ></i><span>Github Repository</span></a>
-                </div>
+            <!-- Projects will be dynamically generated here -->
+            <div class="portfolio-details-container">
+                <!-- JavaScript will populate this -->
             </div>
         </div>
 
         <div class="portfolio-box">
             <div class="portfolio-carousel">
                 <div class="img-slide">
-                    <div class="img-item">
-                        <img src="image/portfolio1.jpg" alt="Project 1">
-                    </div>
-                    <div class="img-item">
-                        <img src="image/portfolio2.jpg" alt="Project 2">
-                    </div>
-                    <div class="img-item">
-                        <img src="image/portfolio3.jpg" alt="Project 3">
-                    </div>
-                    <div class="img-item">
-                        <img src="image/portfolio4.jpg" alt="Project 4">
-                    </div>
-                    <div class="img-item">
-                        <img src="image/portfolio5.jpg" alt="Project 5">
-                    </div>
-                    <div class="img-item">
-                        <img src="image/portfolio6.jpg" alt="Project 6">
-                    </div>
-                    <!-- New Android Project Image -->
-                    <div class="img-item">
-                        <img src="image/portfolio.7.jpg" alt="Android Project">
-                    </div>
+                    <!-- Images will be dynamically generated here -->
                 </div>
             </div>
 
@@ -475,8 +896,208 @@
     </div>
 </section>
 
+    <!-- About Me Section -->
+    <section class="about section">
+        <h2 class="heading">About <span>Me</span></h2>
+        <p class="section-subtitle">Get to know more about me</p>
+        <div class="about-container">
+            <div class="about-content">
+                <!-- Personal Details Card -->
+                <div class="about-card">
+                    <div class="card-header">
+                        <i class='bx bx-user'></i>
+                        <h3>Personal Details</h3>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon"><i class='bx bx-user-circle'></i></div>
+                            <div class="info-content">
+                                <span class="info-label">Full Name</span>
+                                <span class="info-value">MD SHAFIUL ISLAM SHAFI</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class='bx bx-calendar'></i></div>
+                            <div class="info-content">
+                                <span class="info-label">Age</span>
+                                <span class="info-value">22 Years Old</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class='bx bx-map'></i></div>
+                            <div class="info-content">
+                                <span class="info-label">Location</span>
+                                <span class="info-value">Dhaka, Bangladesh</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class='bx bx-flag'></i></div>
+                            <div class="info-content">
+                                <span class="info-label">Nationality</span>
+                                <span class="info-value">Bangladeshi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Info Card -->
+                <div class="about-card">
+                    <div class="card-header">
+                        <i class='bx bx-briefcase'></i>
+                        <h3>Professional Info</h3>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon"><i class='bx bx-trophy'></i></div>
+                            <div class="info-content">
+                                <span class="info-label">Experience</span>
+                                <span class="info-value">2+ Years</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class='bx bx-time'></i></div>
+                            <div class="info-content">
+                                <span class="info-label">Full Time</span>
+                                <span class="info-value available">Available</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class='bx bx-code-alt'></i></div>
+                            <div class="info-content">
+                                <span class="info-label">Freelance</span>
+                                <span class="info-value available">Available</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class='bx bx-world'></i></div>
+                            <div class="info-content">
+                                <span class="info-label">Languages</span>
+                                <span class="info-value">Bangla, English</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Info Card -->
+                <div class="about-card full-width">
+                    <div class="card-header">
+                        <i class='bx bx-phone'></i>
+                        <h3>Contact Information</h3>
+                    </div>
+                    <div class="contact-info-grid">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class='bx bx-phone'></i>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">Phone</span>
+                                <a href="tel:+8801723054839" class="contact-value">+880 1723054839</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class='bx bx-envelope'></i>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">Email</span>
+                                <a href="mailto:islamshafiul741@gmail.com" class="contact-value">islamshafiul741@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class='bx bxl-whatsapp'></i>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">WhatsApp</span>
+                                <a href="https://wa.me/8801612753707" target="_blank" class="contact-value">01612753707</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials section">
+        <h2 class="heading">Client <span>Testimonials</span></h2>
+        <p class="section-subtitle">What my clients say about my work</p>
+        <div class="testimonials-container">
+            <div class="testimonial-slider">
+                <div class="testimonial-item active">
+                    <div class="testimonial-content">
+                        <div class="quote-icon"><i class='bx bxs-quote-alt-left'></i></div>
+                        <p class="testimonial-text">"Shafiul is an exceptional developer who delivered our project on time and exceeded our expectations. Highly recommended!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>John Doe</h4>
+                                <p>CEO, Tech Company</p>
+                            </div>
+                        </div>
+                        <div class="stars">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <div class="quote-icon"><i class='bx bxs-quote-alt-left'></i></div>
+                        <p class="testimonial-text">"Outstanding work quality! The website he created for us is fast, responsive, and exactly what we needed."</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Jane Smith</h4>
+                                <p>Marketing Director</p>
+                            </div>
+                        </div>
+                        <div class="stars">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <div class="quote-icon"><i class='bx bxs-quote-alt-left'></i></div>
+                        <p class="testimonial-text">"Professional, reliable, and talented. Shafiul transformed our ideas into a beautiful reality."</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Mike Johnson</h4>
+                                <p>Startup Founder</p>
+                            </div>
+                        </div>
+                        <div class="stars">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-nav">
+                <button class="testimonial-prev"><i class='bx bx-chevron-left'></i></button>
+                <div class="testimonial-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <button class="testimonial-next"><i class='bx bx-chevron-right'></i></button>
+            </div>
+        </div>
+    </section>
+
+
+
     <!-- contact section -->
-   <section class="contact">
+   <section class="contact section">
     <div class="contact-container">
         <div class="contact-box">
             <h2>Let's Work Together</h2>
@@ -493,6 +1114,13 @@
                 <div class="detail">
                     <p>Email</p>
                     <p>islamshafiul741@gmail.com</p>
+                </div>
+            </div>
+            <div class="contact-detail">
+                <i class='bx bxl-whatsapp'></i>
+                <div class="detail">
+                    <p>WhatsApp</p>
+                    <p><a href="https://wa.me/8801612753707" target="_blank" class="contact-value">01612753707</a></p>
                 </div>
             </div>
             <div class="contact-detail">
@@ -523,61 +1151,10 @@
 
     <!-- custom js -->
     <script src="script.js"></script>
+    <script src="resume-manager.js"></script>
 </body>
 
-</html> 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+</html>  
  
  
  
