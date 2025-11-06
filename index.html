@@ -1,7 +1,4 @@
 
-
-<!-- check -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,6 +28,7 @@
             <a href="#" data-section="resume">Resume</a>
             <a href="#" data-section="portfolio">Portfolio</a>
             <a href="#" data-section="about">About Me</a>
+            <a href="#" data-section="order">Hire Me</a>
             <a href="#" data-section="contact">Contact</a>
         </nav>
     </header>
@@ -49,7 +47,7 @@
             <span style="--i:4" data-text="Programmer">Programmer</span>
             <span style="--i:3" data-text="Web Developer">Web Developer</span>
             <span style="--i:2" data-text="Businessman">Businessman</span>
-            <span style="--i:1" data-text="Content Creator">Content Creator</span>
+            <span style="--i:1" data-text="Android Developer">Android Developer</span>
         </h2>
         <p>Im Shafiul Islam Shafi, a software developer passionate about building real-world tech solutions that are both smart and scalable. I love turning ideas into clean, user-friendly digital experiences through modern web and mobile technologies</p>
 
@@ -66,7 +64,7 @@
     <a href="https://www.youtube.com/@your-channel" target="_blank"><i class='bx bxl-youtube'></i></a>
     <a href="https://www.instagram.com/shafiulislam428?igsh=MThycm93b244N2prNA==" target="_blank">
         <i class='bx bxl-instagram'></i></a>
-    <a href="https://wa.me/8801723054839" target="_blank"><i class='bx bxl-whatsapp'></i></a>
+    <a href="https://wa.me/8801612753707" target="_blank"><i class='bx bxl-whatsapp'></i></a>
             </div>
         </div>
     </div>
@@ -117,59 +115,83 @@
     <!-- services section -->
     <section class="services section">
         <h2 class="heading">My <span>Services</span></h2>
+        <!-- Add Service Button -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <button class="btn add-service-btn" onclick="openAddServiceForm()" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i class='bx bx-plus'></i> Add New Service
+            </button>
+        </div>
         <div class="services-container">
             <div class="services-box">
                 <div class="icon">
                     <i class='bx bx-code-alt'></i>
-                    <a href="#"><i class='bx bx-arrow-back'></i></a>
                 </div>
                 <h3>Web Development</h3>
-                <p>Im a web developer creating fast, beautiful, and user-friendly websites that work seamlessly on all devices.</p>
+                <p>I'm a web developer creating fast, beautiful, and user-friendly websites that work seamlessly on all devices.</p>
+            </div>
+
+            <div class="services-box">
+                <div class="icon">
+                    <i class='bx bx-layer'></i>
+                </div>
+                <h3>Full Stack Development</h3>
+                <p>I build complete web applications with both frontend and backend, delivering end-to-end solutions from database to user interface</p>
             </div>
 
             <div class="services-box">
                 <div class="icon">
                     <i class='bx bx-mobile-alt'></i>
-                    <a href="#"><i class='bx bx-arrow-back'></i></a>
                 </div>
-                <h3>App Development</h3>
-                <p>I’m a mobile app developer who builds user-friendly, fast, and efficient apps designed to solve everyday problems</p>
+                <h3>Mobile App Development</h3>
+                <p>I develop native and cross-platform mobile applications for iOS and Android that are fast, user-friendly, and feature-rich</p>
+            </div>
+
+            <div class="services-box">
+                <div class="icon">
+                    <i class='bx bxl-android'></i>
+                </div>
+                <h3>Android App Development</h3>
+                <p>I create native Android applications using Java and Kotlin with modern UI/UX, Firebase integration, and Google Play Store deployment</p>
+            </div>
+
+            <div class="services-box">
+                <div class="icon">
+                    <i class='bx bx-server'></i>
+                </div>
+                <h3>Backend Development</h3>
+                <p>I create robust server-side applications, RESTful APIs, and database solutions that power modern web and mobile applications</p>
             </div>
 
             <div class="services-box">
                 <div class="icon">
                     <i class='bx bxs-paint'></i>
-                    <a href="#"><i class='bx bx-arrow-back'></i></a>
                 </div>
                 <h3>UI/UX Design</h3>
-                <p>I’m a UI/UX designer crafting clean, intuitive, and engaging designs that enhance user experience</p>
+                <p>I design intuitive and engaging user interfaces that provide exceptional user experiences and drive user engagement</p>
             </div>
 
             <div class="services-box">
                 <div class="icon">
-                    <i class='bx bx-palette'></i>
-                    <a href="#"><i class='bx bx-arrow-back'></i></a>
+                    <i class='bx bx-data'></i>
                 </div>
-                <h3>Graphic Design</h3>
-                <p>I’m a graphic designer creating creative and impactful visual content that effectively tells a brand’s story</p>
+                <h3>Database Management</h3>
+                <p>I design and manage efficient databases using MySQL, MongoDB, and Oracle to ensure optimal data storage and retrieval</p>
             </div>
 
             <div class="services-box">
                 <div class="icon">
-                    <i class='bx bx-trending-up'></i>
-                    <a href="#"><i class='bx bx-arrow-back'></i></a>
+                    <i class='bx bx-server'></i>
                 </div>
-                <h3>SEO</h3>
-                <p>I’m an SEO specialist who improves website rankings using effective strategies to boost traffic and brand visibility</p>
+                <h3>API Development</h3>
+                <p>I create robust RESTful APIs and GraphQL endpoints that enable seamless communication between applications and services</p>
             </div>
 
             <div class="services-box">
                 <div class="icon">
-                    <i class='bx bx-link'></i>
-                    <a href="#"><i class='bx bx-arrow-back'></i></a>
+                    <i class='bx bx-store'></i>
                 </div>
-                <h3>Blockchain</h3>
-                <p>I’m a blockchain developer building secure and decentralized digital solutions that enhance trust through innovative technology</p>
+                <h3>E-commerce Development</h3>
+                <p>I build complete e-commerce platforms with secure payment integration, inventory management, and user-friendly shopping experiences</p>
             </div>
         </div>
     </section>
@@ -859,7 +881,7 @@
     
     <!-- Add Project Button -->
     <div style="text-align: center; margin-bottom: 2rem;">
-        <button class="btn" onclick="openAddProjectForm()" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+        <button class="btn add-project-btn" onclick="openAddProjectForm()" style="display: inline-flex; align-items: center; gap: 0.5rem;">
             <i class='bx bx-plus'></i> Add New Project
         </button>
     </div>
@@ -1096,6 +1118,186 @@
 
 
 
+    <!-- Order/Quote Section -->
+    <section class="order section">
+        <div class="order-header-section">
+            <div class="order-header-content">
+                <h2 class="heading">Place <span>Order</span></h2>
+                <p class="section-subtitle">Transform your ideas into reality. Get a professional quote today!</p>
+                
+                <!-- Trust Indicators -->
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <i class='bx bx-check-circle'></i>
+                        <span>100% Satisfaction</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class='bx bx-time-five'></i>
+                        <span>Fast Response</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class='bx bx-shield-quarter'></i>
+                        <span>Secure & Reliable</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="order-container">
+            <div class="order-form-wrapper">
+                <div class="order-progress">
+                    <div class="progress-step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Basic Info</div>
+                    </div>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Project Details</div>
+                    </div>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Budget & Timeline</div>
+                    </div>
+                </div>
+
+                <form id="orderForm" class="order-form">
+                    <!-- Step 1: Basic Info -->
+                    <div class="form-step active" data-step="1">
+                        <h3>Your Information</h3>
+                        <div class="form-group">
+                            <input type="text" id="orderName" name="name" required>
+                            <label for="orderName">Full Name</label>
+                            <span class="form-bar"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="orderEmail" name="email" required>
+                            <label for="orderEmail">Email Address</label>
+                            <span class="form-bar"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="orderPhone" name="phone" required>
+                            <label for="orderPhone">Phone Number</label>
+                            <span class="form-bar"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="orderWhatsApp" name="whatsapp">
+                            <label for="orderWhatsApp">WhatsApp Number (Optional)</label>
+                            <span class="form-bar"></span>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-next" onclick="nextStep()">Next <i class='bx bx-right-arrow-alt'></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Project Details -->
+                    <div class="form-step" data-step="2">
+                        <h3>Project Information</h3>
+                        <div class="form-group">
+                            <select id="orderType" name="projectType" required>
+                                <option value="">Select Project Type</option>
+                                <option value="web-development">Web Development</option>
+                                <option value="mobile-app">Mobile App Development</option>
+                                <option value="ui-ux-design">UI/UX Design</option>
+                                <option value="graphic-design">Graphic Design</option>
+                                <option value="full-stack">Full Stack Project</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <label for="orderType">Project Type</label>
+                            <span class="form-bar"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="orderTitle" name="projectTitle" required>
+                            <label for="orderTitle">Project Title</label>
+                            <span class="form-bar"></span>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="orderDescription" name="description" rows="4" required></textarea>
+                            <label for="orderDescription">Project Description</label>
+                            <span class="form-bar"></span>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="orderRequirements" name="requirements" rows="3"></textarea>
+                            <label for="orderRequirements">Specific Requirements (Optional)</label>
+                            <span class="form-bar"></span>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class='bx bx-left-arrow-alt'></i> Previous</button>
+                            <button type="button" class="btn btn-next" onclick="nextStep()">Next <i class='bx bx-right-arrow-alt'></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Budget & Timeline -->
+                    <div class="form-step" data-step="3">
+                        <h3>Budget & Timeline</h3>
+                        <div class="form-group">
+                            <select id="orderBudget" name="budget" required>
+                                <option value="">Select Budget Range</option>
+                                <option value="under-5k">Under ৳5,000</option>
+                                <option value="5k-10k">৳5,000 - ৳10,000</option>
+                                <option value="10k-25k">৳10,000 - ৳25,000</option>
+                                <option value="25k-50k">৳25,000 - ৳50,000</option>
+                                <option value="50k-100k">৳50,000 - ৳100,000</option>
+                                <option value="above-100k">Above ৳100,000</option>
+                                <option value="discuss">Let's Discuss</option>
+                            </select>
+                            <label for="orderBudget">Budget Range</label>
+                            <span class="form-bar"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="date" id="orderDeadline" name="deadline">
+                            <label for="orderDeadline">Preferred Deadline (Optional)</label>
+                            <span class="form-bar"></span>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="orderNotes" name="notes" rows="3"></textarea>
+                            <label for="orderNotes">Additional Notes</label>
+                            <span class="form-bar"></span>
+                        </div>
+                        <div class="payment-options">
+                            <h4>Payment Method Preference</h4>
+                            <div class="payment-grid">
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="bkash" checked>
+                                    <span><i class='bx bx-mobile'></i> Bkash</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="nagad">
+                                    <span><i class='bx bx-mobile'></i> Nagad</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="bank">
+                                    <span><i class='bx bx-building'></i> Bank Transfer</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="discuss">
+                                    <span><i class='bx bx-message'></i> Discuss Later</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class='bx bx-left-arrow-alt'></i> Previous</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="btn-text">Submit Order</span>
+                                <span class="btn-loader" style="display: none;"><i class='bx bx-loader-alt bx-spin'></i></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="notification" id="orderNotification"></div>
+            </div>
+        </div>
+
+        <!-- WhatsApp Quick Order Button -->
+        <div class="whatsapp-order-btn">
+            <a href="https://wa.me/8801612753707?text=Hi! I'm interested in placing an order for a project. Can you help me?" target="_blank" class="whatsapp-btn">
+                <i class='bx bxl-whatsapp'></i>
+                <span>Order via WhatsApp</span>
+            </a>
+        </div>
+    </section>
+
     <!-- contact section -->
    <section class="contact section">
     <div class="contact-container">
@@ -1147,11 +1349,14 @@
         </div>
     </div>
 </section>
->
+
 
     <!-- custom js -->
+    <script src="password-protection.js"></script>
+    <script src="admin-auth.js"></script>
     <script src="script.js"></script>
     <script src="resume-manager.js"></script>
+    <script src="order-form.js"></script>
 </body>
 
 </html>  

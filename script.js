@@ -131,7 +131,7 @@ function renderProjects(filterCategory = 'all') {
                 </a>
             </div>
             ${isUser ? `
-            <div class="service-actions" style="display:flex; gap:.5rem; margin-top:1rem;">
+            <div class="service-actions project-actions" style="display:flex; gap:.5rem; margin-top:1rem;">
                 <button class="btn" style="padding:.5rem 1rem;" onclick="openEditProjectForm(${project.id})"><i class='bx bx-edit'></i> Edit</button>
                 <button class="btn" style="padding:.5rem 1rem; background:#ff4d4f;" onclick="deleteProject(${project.id})"><i class='bx bx-trash'></i> Delete</button>
             </div>` : ''}
@@ -367,6 +367,7 @@ const sectionMap = {
     'resume': 'resume',
     'portfolio': 'portfolio',
     'about': 'about',
+    'order': 'order',
     'contact': 'contact'
 };
 
@@ -380,11 +381,95 @@ navLinks.forEach((link) => {
             link.classList.add('active');
             
             // Find the matching section
+            let targetSection = null;
             sections.forEach(section => {
+                // Check if section has the matching class (handles 'order section' case)
                 if (section.classList.contains(sectionName)) {
                     section.classList.add('active');
+                    targetSection = section;
                 }
             });
+            
+            // Double-check: if section not found by class, try by id
+            if (!targetSection) {
+                targetSection = document.querySelector(`section.${sectionName}`);
+                if (targetSection && !targetSection.classList.contains('active')) {
+                    targetSection.classList.add('active');
+                }
+            }
+            
+            // Special handling for order section - ensure form is visible immediately
+            if (sectionName === 'order' && targetSection) {
+                // Ensure section is active and visible
+                targetSection.classList.add('active');
+                targetSection.style.visibility = 'visible';
+                targetSection.style.opacity = '1';
+                
+                // Reset form to first step immediately
+                window.currentStep = 1;
+                
+                // Show first step immediately
+                const firstStep = targetSection.querySelector('.form-step[data-step="1"]');
+                if (firstStep) {
+                    // Hide all steps
+                    targetSection.querySelectorAll('.form-step').forEach(step => {
+                        step.classList.remove('active');
+                        step.style.display = 'none';
+                        step.style.opacity = '0';
+                        step.style.visibility = 'hidden';
+                    });
+                    // Show first step
+                    firstStep.classList.add('active');
+                    firstStep.style.display = 'block';
+                    firstStep.style.opacity = '1';
+                    firstStep.style.visibility = 'visible';
+                }
+                
+                // Update progress indicators
+                targetSection.querySelectorAll('.progress-step').forEach((stepEl, index) => {
+                    if (index === 0) {
+                        stepEl.classList.add('active');
+                    } else {
+                        stepEl.classList.remove('active');
+                    }
+                });
+                
+                // Ensure form elements are visible
+                const orderForm = targetSection.querySelector('#orderForm');
+                const orderFormWrapper = targetSection.querySelector('.order-form-wrapper');
+                const orderContainer = targetSection.querySelector('.order-container');
+                
+                if (orderForm) {
+                    orderForm.style.display = 'block';
+                    orderForm.style.visibility = 'visible';
+                    orderForm.style.opacity = '1';
+                }
+                if (orderFormWrapper) {
+                    orderFormWrapper.style.display = 'block';
+                    orderFormWrapper.style.visibility = 'visible';
+                    orderFormWrapper.style.opacity = '1';
+                }
+                if (orderContainer) {
+                    orderContainer.style.display = 'flex';
+                    orderContainer.style.visibility = 'visible';
+                    orderContainer.style.opacity = '1';
+                }
+                
+                // Initialize form if function exists
+                if (typeof window.initializeForm === 'function') {
+                    window.initializeForm();
+                }
+                
+                // Ensure form step is visible after a short delay
+                setTimeout(() => {
+                    if (firstStep) {
+                        firstStep.classList.add('active');
+                        firstStep.style.display = 'block';
+                        firstStep.style.opacity = '1';
+                        firstStep.style.visibility = 'visible';
+                    }
+                }, 50);
+            }
             
             // Smooth scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -764,6 +849,32 @@ function initEmailCopy() {
 // ============================================
 // INITIALIZE ALL FEATURES
 // ============================================
+// ============================================
+// FAQ FUNCTIONALITY
+// ============================================
+function initFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        if (!question) return;
+        
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close all other items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            
+            // Toggle current item
+            item.classList.toggle('active', !isActive);
+        });
+    });
+}
+
 function initAllFeatures() {
     initStatistics();
     initScrollToTop();
@@ -771,6 +882,7 @@ function initAllFeatures() {
     initTestimonials();
     initContactForm();
     initEmailCopy();
+    initFAQ();
 }
 
 // ============================================
@@ -829,7 +941,6 @@ function renderUserServices() {
         box.innerHTML = `
             <div class="icon">
                 <i class='bx ${iconClass}'></i>
-                <a href="#"><i class='bx bx-arrow-back'></i></a>
             </div>
             <h3>${svc.title || ''}</h3>
             <p>${svc.description || ''}</p>
@@ -844,6 +955,12 @@ function renderUserServices() {
 }
 
 function openAddServiceForm() {
+    showPasswordPrompt(() => {
+        openAddServiceFormAction();
+    }, 'add a new service');
+}
+
+function openAddServiceFormAction() {
     const modal = document.createElement('div');
     modal.className = 'add-form-modal';
     modal.id = 'addServiceModal';
@@ -866,9 +983,26 @@ function openAddServiceForm() {
 function closeAddServiceForm() { const m = document.getElementById('addServiceModal'); if (m) m.remove(); }
 function addService(e) {
     e.preventDefault();
+    showPasswordPrompt(() => {
+        addServiceAction(e);
+    }, 'add this service');
+}
+
+function addServiceAction(e) {
+    e.preventDefault();
     const f = e.target;
-    const title = f[0].value;
-    const description = f[1].value;
+    const titleInput = f.querySelector('input[type="text"]');
+    const descriptionInput = f.querySelector('textarea');
+    if (!titleInput || !descriptionInput) {
+        alert('Please fill in all fields');
+        return;
+    }
+    const title = titleInput.value.trim();
+    const description = descriptionInput.value.trim();
+    if (!title || !description) {
+        alert('Please fill in all fields');
+        return;
+    }
     addUserService({ id: Date.now(), title, icon: getServiceIconByName(title), description });
     renderUserServices();
     closeAddServiceForm();
@@ -897,12 +1031,28 @@ function openEditServiceForm(id) {
 function closeEditServiceForm() { const m = document.getElementById('editServiceModal'); if (m) m.remove(); }
 function saveEditedService(e, id) {
     e.preventDefault();
+    showPasswordPrompt(() => {
+        saveEditedServiceAction(e, id);
+    }, 'save changes to this service');
+}
+
+function saveEditedServiceAction(e, id) {
+    e.preventDefault();
     const f = e.target; const title = f[0].value; const description = f[1].value;
     const list = loadUserServices(); const idx = list.findIndex(s => s.id === id);
     if (idx !== -1) { list[idx].title = title; list[idx].description = description; list[idx].icon = getServiceIconByName(title); saveUserServices(list); }
     renderUserServices(); closeEditServiceForm();
 }
-function deleteService(id) { saveUserServices(loadUserServices().filter(s => s.id !== id)); renderUserServices(); }
+function deleteService(id) {
+    showPasswordPrompt(() => {
+        deleteServiceAction(id);
+    }, 'delete this service');
+}
+
+function deleteServiceAction(id) {
+    saveUserServices(loadUserServices().filter(s => s.id !== id));
+    renderUserServices();
+}
 
 // Built-in services controls
 function loadHiddenBuiltinServices() { try { const r = localStorage.getItem(BUILTIN_SERVICES_HIDDEN_KEY); return r ? JSON.parse(r) : []; } catch { return []; } }
@@ -940,6 +1090,12 @@ function applyBuiltinServiceState() {
 }
 
 function openEditBuiltinServiceForm(idx) {
+    showPasswordPrompt(() => {
+        openEditBuiltinServiceFormAction(idx);
+    }, 'edit this built-in service');
+}
+
+function openEditBuiltinServiceFormAction(idx) {
     const container = document.querySelector('.services.section .services-container'); if (!container) return;
     const box = container.querySelector(`.services-box[data-builtin-idx="${idx}"]`); if (!box) return;
     const currentTitle = box.querySelector('h3')?.textContent || '';
@@ -960,11 +1116,27 @@ function openEditBuiltinServiceForm(idx) {
 }
 function closeEditBuiltinServiceForm() { const m = document.getElementById('editBuiltinServiceModal'); if (m) m.remove(); }
 function saveEditedBuiltinService(e, idx) {
-    e.preventDefault(); const f = e.target; const title = f[0].value; const description = f[1].value;
+    e.preventDefault();
+    showPasswordPrompt(() => {
+        saveEditedBuiltinServiceAction(e, idx);
+    }, 'save changes to this built-in service');
+}
+
+function saveEditedBuiltinServiceAction(e, idx) {
+    e.preventDefault();
+    const f = e.target; const title = f[0].value; const description = f[1].value;
     const overrides = loadBuiltinOverrides(); overrides[idx] = { title, description, icon: getServiceIconByName(title) }; saveBuiltinOverrides(overrides);
     closeEditBuiltinServiceForm(); applyBuiltinServiceState();
 }
-function deleteBuiltinService(idx) { const s = new Set(loadHiddenBuiltinServices()); s.add(idx); saveHiddenBuiltinServices(Array.from(s)); applyBuiltinServiceState(); }
+function deleteBuiltinService(idx) {
+    showPasswordPrompt(() => {
+        deleteBuiltinServiceAction(idx);
+    }, 'delete this built-in service');
+}
+
+function deleteBuiltinServiceAction(idx) {
+    const s = new Set(loadHiddenBuiltinServices()); s.add(idx); saveHiddenBuiltinServices(Array.from(s)); applyBuiltinServiceState();
+}
 
 // Initialize services controls
 document.addEventListener('DOMContentLoaded', () => { renderUserServices(); applyBuiltinServiceState(); });
@@ -974,6 +1146,12 @@ window.addEventListener('load', () => { try { renderUserServices(); applyBuiltin
 // PROJECTS: Add form
 // ============================================
 function openAddProjectForm() {
+    showPasswordPrompt(() => {
+        openAddProjectFormAction();
+    }, 'add a new project');
+}
+
+function openAddProjectFormAction() {
     const modal = document.createElement('div');
     modal.className = 'add-form-modal';
     modal.id = 'addProjectModal';
@@ -1035,6 +1213,12 @@ function openAddProjectForm() {
 }
 
 function openEditProjectForm(id) {
+    showPasswordPrompt(() => {
+        openEditProjectFormAction(id);
+    }, 'edit this project');
+}
+
+function openEditProjectFormAction(id) {
     const list = loadUserProjects(); const proj = list.find(p => p.id === id); if (!proj) return;
     const modal = document.createElement('div');
     modal.className = 'add-form-modal'; modal.id = 'editProjectModal';
@@ -1087,7 +1271,16 @@ function openEditProjectForm(id) {
     });
 }
 
-function deleteProject(id) { saveUserProjects(loadUserProjects().filter(p => p.id !== id)); renderProjects(); }
+function deleteProject(id) {
+    showPasswordPrompt(() => {
+        deleteProjectAction(id);
+    }, 'delete this project');
+}
+
+function deleteProjectAction(id) {
+    saveUserProjects(loadUserProjects().filter(p => p.id !== id));
+    renderProjects();
+}
 
 // ============================================
 // Certificates: fallback add form if resume-manager.js not present
@@ -1220,6 +1413,12 @@ function ensureExperienceActions() {
 }
 
 function openEditBuiltinExperience(idx) {
+    showPasswordPrompt(() => {
+        openEditBuiltinExperienceAction(idx);
+    }, 'edit this built-in experience');
+}
+
+function openEditBuiltinExperienceAction(idx) {
     const container = document.getElementById('experienceList'); if (!container) return;
     const builtins = Array.from(container.querySelectorAll('.resume-item.experience-card')).filter(c => !c.hasAttribute('data-exp-id'));
     const card = builtins[idx]; if (!card) return;
@@ -1252,18 +1451,33 @@ function openEditBuiltinExperience(idx) {
     document.body.appendChild(modal); modal.style.display = 'flex';
 
     modal.querySelector('#editBuiltinExpForm').addEventListener('submit', (e) => {
-        e.preventDefault(); const f = e.target; const inputs = Array.from(f.querySelectorAll('input, textarea')).map(el => el.value);
-        const [yearV, typeV, positionV, companyV, descriptionV, techV] = [inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5] || ''];
-        const technologies = techV ? techV.split(',').map(t => t.trim()).filter(Boolean) : [];
-        const ov = loadBuiltinExperienceOverrides(); ov[idx] = { year: yearV, type: typeV, position: positionV, company: companyV, description: descriptionV, technologies };
-        saveBuiltinExperienceOverrides(ov);
-        const m = document.getElementById('editBuiltinExpModal'); if (m) m.remove();
-        // ensureExperienceActions(); // Disabled - using new system
-        if (typeof window.renderExperience === 'function') { window.renderExperience(); }
+        e.preventDefault();
+        showPasswordPrompt(() => {
+            saveBuiltinExperienceAction(e, idx);
+        }, 'save changes to this built-in experience');
     });
 }
 
-function deleteBuiltinExperience(idx) { const s = new Set(loadHiddenBuiltinExperience()); s.add(idx); saveHiddenBuiltinExperience(Array.from(s)); 
+function saveBuiltinExperienceAction(e, idx) {
+    e.preventDefault();
+    const f = e.target; const inputs = Array.from(f.querySelectorAll('input, textarea')).map(el => el.value);
+    const [yearV, typeV, positionV, companyV, descriptionV, techV] = [inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5] || ''];
+    const technologies = techV ? techV.split(',').map(t => t.trim()).filter(Boolean) : [];
+    const ov = loadBuiltinExperienceOverrides(); ov[idx] = { year: yearV, type: typeV, position: positionV, company: companyV, description: descriptionV, technologies };
+    saveBuiltinExperienceOverrides(ov);
+    const m = document.getElementById('editBuiltinExpModal'); if (m) m.remove();
+    // ensureExperienceActions(); // Disabled - using new system
+    if (typeof window.renderExperience === 'function') { window.renderExperience(); }
+}
+
+function deleteBuiltinExperience(idx) {
+    showPasswordPrompt(() => {
+        deleteBuiltinExperienceAction(idx);
+    }, 'delete this built-in experience');
+}
+
+function deleteBuiltinExperienceAction(idx) {
+    const s = new Set(loadHiddenBuiltinExperience()); s.add(idx); saveHiddenBuiltinExperience(Array.from(s)); 
     // ensureExperienceActions(); // Disabled - using new system
     if (typeof window.renderExperience === 'function') { window.renderExperience(); }
 }

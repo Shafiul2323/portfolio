@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Admin</title>
+    <style>
+        body {
+            padding: 2rem;
+            font-family: Arial, sans-serif;
+        }
+        .test-btn {
+            padding: 1rem 2rem;
+            margin: 1rem;
+            background: #7cf03d;
+            color: #000;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1.6rem;
+        }
+        .status {
+            padding: 1rem;
+            margin: 1rem 0;
+            background: #333;
+            color: #fff;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Authentication Test</h1>
+    
+    <div class="status" id="status">
+        Checking admin status...
+    </div>
+    
+    <button class="test-btn" onclick="testAdmin()">Check Admin Status</button>
+    <button class="test-btn" onclick="testLogin()">Test Login</button>
+    <button class="test-btn" onclick="testRefresh()">Refresh Controls</button>
+    
+    <div style="margin-top: 2rem;">
+        <h2>Test Add Buttons</h2>
+        <button class="test-btn add-service-btn" onclick="alert('Add Service Clicked!')">Add Service</button>
+        <button class="test-btn add-project-btn" onclick="alert('Add Project Clicked!')">Add Project</button>
+        <button class="test-btn add-item-btn" onclick="alert('Add Item Clicked!')">Add Item</button>
+    </div>
+    
+    <script src="admin-auth.js"></script>
+    <script>
+        function testAdmin() {
+            const status = document.getElementById('status');
+            const isAdminUser = typeof isAdmin === 'function' ? isAdmin() : false;
+            status.innerHTML = `Admin Status: ${isAdminUser ? '✅ LOGGED IN' : '❌ NOT LOGGED IN'}<br>LocalStorage: ${localStorage.getItem('isAdminAuthenticated')}`;
+        }
+        
+        function testLogin() {
+            if (typeof showAdminLoginModal === 'function') {
+                showAdminLoginModal();
+            } else {
+                alert('showAdminLoginModal function not found!');
+            }
+        }
+        
+        function testRefresh() {
+            if (typeof refreshAdminControls === 'function') {
+                refreshAdminControls();
+                alert('Controls refreshed!');
+            } else {
+                alert('refreshAdminControls function not found!');
+            }
+        }
+        
+        // Auto-check on load
+        setTimeout(() => {
+            testAdmin();
+            if (typeof refreshAdminControls === 'function') {
+                refreshAdminControls();
+            }
+        }, 500);
+    </script>
+</body>
+</html>
+
+

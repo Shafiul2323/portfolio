@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Test - Order System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1d29;
+            color: #fff;
+        }
+        .test-item {
+            background: #252935;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #7cf03d;
+        }
+        .success { border-left-color: #5cb85c; }
+        .error { border-left-color: #d9534f; }
+        button {
+            background: #7cf03d;
+            color: #1a1d29;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+        button:hover { background: #5fc025; }
+        #results { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1> Project Test - Order System</h1>
+    
+    <div class="test-item">
+        <h3>1. Server Status</h3>
+        <button onclick="testServer()">Test Server Connection</button>
+        <div id="serverResult"></div>
+    </div>
+    
+    <div class="test-item">
+        <h3>2. Create Test Order</h3>
+        <button onclick="testCreateOrder()">Create Test Order</button>
+        <div id="orderResult"></div>
+    </div>
+    
+    <div class="test-item">
+        <h3>3. Get All Orders</h3>
+        <button onclick="testGetOrders()">Fetch Orders</button>
+        <div id="ordersResult"></div>
+    </div>
+    
+    <div class="test-item">
+        <h3>4. Order Form</h3>
+        <a href="index.html#order" style="color: #7cf03d;">Go to Order Form →</a>
+    </div>
+    
+    <div class="test-item">
+        <h3>5. Admin Dashboard</h3>
+        <a href="admin/index.html" style="color: #7cf03d;">Open Admin Dashboard →</a>
+    </div>
+    
+    <div id="results"></div>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+        
+        async function testServer() {
+            const result = document.getElementById('serverResult');
+            result.innerHTML = 'Testing...';
+            
+            try {
+                const res = await fetch(`${API_URL}/health`);
+                const data = await res.json();
+                result.innerHTML = `<div class="test-item success">
+                    ✅ Server Running!<br>
+                    Database: ${data.database}<br>
+                    Time: ${data.timestamp}
+                </div>`;
+            } catch (error) {
+                result.innerHTML = `<div class="test-item error">
+                     Server Not Running<br>
+                    Error: ${error.message}<br>
+                    <small>Make sure server is running: cd server && npm start</small>
+                </div>`;
+            }
+        }
+        
+        async function testCreateOrder() {
+            const result = document.getElementById('orderResult');
+            result.innerHTML = 'Creating test order...';
+            
+            const testOrder = {
+                name: 'Test User',
+                email: 'test@example.com',
+                phone: '+8801234567890',
+                projectType: 'web-development',
+                projectTitle: 'Test Project',
+                description: 'This is a test order',
+                budget: '10k-25k',
+                paymentMethod: 'bkash'
+            };
+            
+            try {
+                const res = await fetch(`${API_URL}/orders`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testOrder)
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    result.innerHTML = `<div class="test-item success">
+                        ✅ Order Created Successfully!<br>
+                        ID: ${data.data._id}<br>
+                        Storage: ${data.storage || 'unknown'}
+                    </div>`;
+                } else {
+                    result.innerHTML = `<div class="test-item error">
+                        ❌ Failed: ${data.message}
+                    </div>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<div class="test-item error">
+                    ❌ Error: ${error.message}
+                </div>`;
+            }
+        }
+        
+        async function testGetOrders() {
+            const result = document.getElementById('ordersResult');
+            result.innerHTML = 'Fetching orders...';
+            
+            try {
+                const res = await fetch(`${API_URL}/orders`);
+                const data = await res.json();
+                
+                if (data.success) {
+                    result.innerHTML = `<div class="test-item success">
+                        ✅ Found ${data.total} orders<br>
+                        Storage: ${data.storage || 'unknown'}<br>
+                        <small>Check admin dashboard to view details</small>
+                    </div>`;
+                } else {
+                    result.innerHTML = `<div class="test-item error">
+                        ❌ Failed: ${data.message}
+                    </div>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<div class="test-item error">
+                    ❌ Error: ${error.message}
+                </div>`;
+            }
+        }
+        
+        // Auto-test on load
+        window.onload = () => {
+            setTimeout(testServer, 1000);
+        };
+    </script>
+</body>
+</html>
+

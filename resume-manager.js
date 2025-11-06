@@ -1,8 +1,4 @@
-// ============================================
-// RESUME MANAGER - Dynamic Content & Add Forms
-// ============================================
 
-// Get data from localStorage or use default - Merge JSON data with localStorage
 function getResumeData() {
     // Start with JSON data (portfolioData) - this has existing data
     let baseData = {
@@ -353,8 +349,15 @@ function renderCertificatesInResume() {
     }
 }
 
-// Open Add Form Modal
+// Open Add Form Modal - ADMIN CHECK REQUIRED
 function openAddForm(type) {
+    // Password protection required
+    showPasswordPrompt(() => {
+        openAddFormModal(type);
+    }, `add ${type}`);
+}
+
+function openAddFormModal(type) {
     const modal = document.createElement('div');
     modal.className = 'add-form-modal';
     modal.id = 'addFormModal';
@@ -495,6 +498,13 @@ function previewCertificateImage(event) {
 // Add Functions
 function addExperience(event) {
     event.preventDefault();
+    showPasswordPrompt(() => {
+        addExperienceAction(event);
+    }, 'add experience');
+}
+
+function addExperienceAction(event) {
+    event.preventDefault();
     const form = event.target;
     
     const expData = {
@@ -516,6 +526,13 @@ function addExperience(event) {
 
 function addEducation(event) {
     event.preventDefault();
+    showPasswordPrompt(() => {
+        addEducationAction(event);
+    }, 'add education');
+}
+
+function addEducationAction(event) {
+    event.preventDefault();
     const form = event.target;
     
     const eduData = {
@@ -536,6 +553,13 @@ function addEducation(event) {
 }
 
 function addSkill(event) {
+    event.preventDefault();
+    showPasswordPrompt(() => {
+        addSkillAction(event);
+    }, 'add skill');
+}
+
+function addSkillAction(event) {
     event.preventDefault();
     const form = event.target;
     
@@ -567,6 +591,13 @@ function addSkill(event) {
 
 function addCertificate(event) {
     event.preventDefault();
+    showPasswordPrompt(() => {
+        addCertificateAction(event);
+    }, 'add certificate');
+}
+
+function addCertificateAction(event) {
+    event.preventDefault();
     const form = event.target;
     const imagePath = document.getElementById('certImagePathResume')?.value || '';
     
@@ -589,18 +620,48 @@ function addCertificate(event) {
 // EDIT & DELETE FUNCTIONS
 // ============================================
 
-// Edit Experience
+// Edit Experience - ADMIN CHECK REQUIRED
 function editExperience(id) {
-    // Try to find in portfolioData first (HTML cards)
+    showPasswordPrompt(() => {
+        editExperienceAction(id);
+    }, 'edit experience');
+}
+
+function editExperienceAction(id) {
+    // First try to get data from the DOM card itself
+    const card = document.querySelector(`[data-exp-id="${id}"]`);
     let exp = null;
-    if (portfolioData && portfolioData.experience) {
-        exp = portfolioData.experience.find(e => e.id === id);
+    
+    if (card) {
+        // Extract data from the card DOM
+        const year = card.querySelector('.year-badge')?.textContent?.trim() || '';
+        const type = card.querySelector('.job-type')?.textContent?.trim() || '';
+        const position = card.querySelector('h3')?.textContent?.trim() || '';
+        const company = card.querySelector('.company')?.textContent?.trim() || '';
+        const description = card.querySelector('.job-description')?.textContent?.trim() || '';
+        const techElements = card.querySelectorAll('.job-tags .tag');
+        const technologies = Array.from(techElements).map(el => el.textContent.trim());
+        
+        exp = {
+            id: id,
+            year: year,
+            type: type,
+            position: position,
+            company: company,
+            description: description,
+            technologies: technologies
+        };
     }
     
-    // If not found, try localStorage
+    // If not found in DOM, try portfolioData
+    if (!exp && portfolioData && portfolioData.experience) {
+        exp = portfolioData.experience.find(e => e.id == id || String(e.id) === String(id));
+    }
+    
+    // If still not found, try localStorage
     if (!exp) {
         const data = getResumeData();
-        exp = data.experience.find(e => e.id === id);
+        exp = data.experience.find(e => e.id == id || String(e.id) === String(id));
     }
     
     if (!exp) {
@@ -611,40 +672,80 @@ function editExperience(id) {
     openEditForm('experience', exp);
 }
 
-// Delete Experience
+// Delete Experience - ADMIN CHECK REQUIRED
 function deleteExperience(id) {
-    if (confirm('Are you sure you want to delete this experience?')) {
-        // Check if it's from localStorage
-        const saved = localStorage.getItem('resumeData');
-        let savedData = saved ? JSON.parse(saved) : { experience: [] };
-        
-        // Remove from localStorage if it exists there
-        const localExpIndex = savedData.experience.findIndex(e => e.id === id);
-        if (localExpIndex !== -1) {
-            savedData.experience = savedData.experience.filter(e => e.id !== id);
-            localStorage.setItem('resumeData', JSON.stringify(savedData));
+    showPasswordPrompt(() => {
+        if (confirm('Are you sure you want to delete this experience?')) {
+            deleteExperienceAction(id);
         }
-        
-        // Remove from DOM
-        const card = document.querySelector(`[data-exp-id="${id}"]`);
-        if (card) {
-            card.remove();
-        }
+    }, 'delete experience');
+}
+
+function deleteExperienceAction(id) {
+    // Check if it's from localStorage
+    const saved = localStorage.getItem('resumeData');
+    let savedData = saved ? JSON.parse(saved) : { experience: [] };
+    
+    // Remove from localStorage if it exists there
+    const localExpIndex = savedData.experience.findIndex(e => e.id === id);
+    if (localExpIndex !== -1) {
+        savedData.experience = savedData.experience.filter(e => e.id !== id);
+        localStorage.setItem('resumeData', JSON.stringify(savedData));
+    }
+    
+    // Remove from DOM
+    const card = document.querySelector(`[data-exp-id="${id}"]`);
+    if (card) {
+        card.remove();
     }
 }
 
-// Edit Education
+// Edit Education - ADMIN CHECK REQUIRED
 function editEducation(id) {
-    // Try to find in portfolioData first (HTML cards)
+    showPasswordPrompt(() => {
+        editEducationAction(id);
+    }, 'edit education');
+}
+
+function editEducationAction(id) {
+    // First try to get data from the DOM card itself
+    const card = document.querySelector(`[data-edu-id="${id}"]`);
     let edu = null;
-    if (portfolioData && portfolioData.education) {
-        edu = portfolioData.education.find(e => e.id === id);
+    
+    if (card) {
+        // Extract data from the card DOM
+        const year = card.querySelector('.year-badge')?.textContent?.trim() || '';
+        const level = card.querySelector('.degree-level')?.textContent?.trim() || '';
+        const degree = card.querySelector('h3')?.textContent?.trim() || '';
+        const institution = card.querySelector('.company')?.textContent?.trim() || '';
+        const description = card.querySelector('.education-description')?.textContent?.trim() || '';
+        const highlightElements = card.querySelectorAll('.education-highlights .highlight');
+        const highlights = Array.from(highlightElements).map(el => {
+            const text = el.textContent?.trim() || '';
+            // Remove the check icon text if present
+            return text.replace(/^\s*✓\s*/, '').replace(/^\s*/, '').trim();
+        });
+        
+        edu = {
+            id: id,
+            year: year,
+            level: level,
+            degree: degree,
+            institution: institution,
+            description: description,
+            highlights: highlights
+        };
     }
     
-    // If not found, try localStorage
+    // If not found in DOM, try portfolioData
+    if (!edu && portfolioData && portfolioData.education) {
+        edu = portfolioData.education.find(e => e.id == id || String(e.id) === String(id));
+    }
+    
+    // If still not found, try localStorage
     if (!edu) {
         const data = getResumeData();
-        edu = data.education.find(e => e.id === id);
+        edu = data.education.find(e => e.id == id || String(e.id) === String(id));
     }
     
     if (!edu) {
@@ -655,30 +756,42 @@ function editEducation(id) {
     openEditForm('education', edu);
 }
 
-// Delete Education
+// Delete Education - ADMIN CHECK REQUIRED
 function deleteEducation(id) {
-    if (confirm('Are you sure you want to delete this education?')) {
-        // Check if it's from localStorage
-        const saved = localStorage.getItem('resumeData');
-        let savedData = saved ? JSON.parse(saved) : { education: [] };
-        
-        // Remove from localStorage if it exists there
-        const localEduIndex = savedData.education.findIndex(e => e.id === id);
-        if (localEduIndex !== -1) {
-            savedData.education = savedData.education.filter(e => e.id !== id);
-            localStorage.setItem('resumeData', JSON.stringify(savedData));
+    showPasswordPrompt(() => {
+        if (confirm('Are you sure you want to delete this education?')) {
+            deleteEducationAction(id);
         }
-        
-        // Remove from DOM
-        const card = document.querySelector(`[data-edu-id="${id}"]`);
-        if (card) {
-            card.remove();
-        }
+    }, 'delete education');
+}
+
+function deleteEducationAction(id) {
+    // Check if it's from localStorage
+    const saved = localStorage.getItem('resumeData');
+    let savedData = saved ? JSON.parse(saved) : { education: [] };
+    
+    // Remove from localStorage if it exists there
+    const localEduIndex = savedData.education.findIndex(e => e.id === id);
+    if (localEduIndex !== -1) {
+        savedData.education = savedData.education.filter(e => e.id !== id);
+        localStorage.setItem('resumeData', JSON.stringify(savedData));
+    }
+    
+    // Remove from DOM
+    const card = document.querySelector(`[data-edu-id="${id}"]`);
+    if (card) {
+        card.remove();
     }
 }
 
-// Edit Certificate
+// Edit Certificate - ADMIN CHECK REQUIRED
 function editCertificate(id) {
+    showPasswordPrompt(() => {
+        editCertificateAction(id);
+    }, 'edit certificate');
+}
+
+function editCertificateAction(id) {
     const data = getResumeData();
     const cert = data.certificates.find(c => c.id === id);
     if (!cert) return;
@@ -686,19 +799,25 @@ function editCertificate(id) {
     openEditForm('certificates', cert);
 }
 
-// Delete Certificate
+// Delete Certificate - ADMIN CHECK REQUIRED
 function deleteCertificate(id) {
-    if (confirm('Are you sure you want to delete this certificate?')) {
-        const saved = localStorage.getItem('resumeData');
-        let savedData = saved ? JSON.parse(saved) : { certificates: [] };
-        savedData.certificates = savedData.certificates.filter(c => c.id !== id);
-        localStorage.setItem('resumeData', JSON.stringify(savedData));
-        
-        // Also remove from DOM if it exists
-        const card = document.querySelector(`[data-cert-id="${id}"]`);
-        if (card) {
-            card.remove();
+    showPasswordPrompt(() => {
+        if (confirm('Are you sure you want to delete this certificate?')) {
+            deleteCertificateAction(id);
         }
+    }, 'delete certificate');
+}
+
+function deleteCertificateAction(id) {
+    const saved = localStorage.getItem('resumeData');
+    let savedData = saved ? JSON.parse(saved) : { certificates: [] };
+    savedData.certificates = savedData.certificates.filter(c => c.id !== id);
+    localStorage.setItem('resumeData', JSON.stringify(savedData));
+    
+    // Also remove from DOM if it exists
+    const card = document.querySelector(`[data-cert-id="${id}"]`);
+    if (card) {
+        card.remove();
     }
 }
 
@@ -797,31 +916,51 @@ function closeEditForm() {
 // Update Functions
 function updateExperience(event, id) {
     event.preventDefault();
+    showPasswordPrompt(() => {
+        updateExperienceAction(event, id);
+    }, 'update this experience');
+}
+
+function updateExperienceAction(event, id) {
+    event.preventDefault();
     const form = event.target;
     
+    // Get form values using querySelector for reliability
+    // Form order: Year, Position, Company, Type (select), Description (textarea), Technologies
+    const formRows = form.querySelectorAll('.form-row');
+    const year = formRows[0]?.querySelector('input[placeholder*="Year"]')?.value || '';
+    const position = formRows[0]?.querySelector('input[placeholder*="Position"]')?.value || '';
+    const company = formRows[1]?.querySelector('input[placeholder*="Company"]')?.value || '';
+    const type = formRows[1]?.querySelector('select')?.value || '';
+    const description = form.querySelector('textarea[placeholder*="Description"]')?.value || '';
+    const techInput = form.querySelector('input[placeholder*="Technologies"]');
+    const techValue = techInput?.value || '';
+    const technologies = techValue ? techValue.split(',').map(t => t.trim()).filter(Boolean) : [];
+    
     const expData = {
-        id: id,
-        year: form[0].value,
-        position: form[1].value,
-        company: form[2].value,
-        type: form[3].value,
-        description: form[4].value,
-        technologies: form[5].value ? form[5].value.split(',').map(t => t.trim()) : [],
+        id: parseInt(id),
+        year: year,
+        position: position,
+        company: company,
+        type: type,
+        description: description,
+        technologies: technologies,
         icon: 'bx-code-alt'
     };
     
     // Save to localStorage (always - for both HTML cards and new items)
     const saved = localStorage.getItem('resumeData');
     let savedData = saved ? JSON.parse(saved) : { experience: [] };
-    const index = savedData.experience.findIndex(e => e.id === id);
+    if (!savedData.experience) savedData.experience = [];
+    
+    const index = savedData.experience.findIndex(e => e.id == id || String(e.id) === String(id));
     if (index !== -1) {
         savedData.experience[index] = expData;
-        localStorage.setItem('resumeData', JSON.stringify(savedData));
     } else {
         // If not in localStorage, add it (HTML card being edited)
         savedData.experience.push(expData);
-        localStorage.setItem('resumeData', JSON.stringify(savedData));
     }
+    localStorage.setItem('resumeData', JSON.stringify(savedData));
     
     // Update the card in DOM
     const card = document.querySelector(`[data-exp-id="${id}"]`);
@@ -841,15 +980,32 @@ function updateExperience(event, id) {
         const h3 = card.querySelector('h3');
         if (h3) h3.textContent = expData.position || '';
         
-        const company = card.querySelector('.company');
-        if (company) company.innerHTML = `<i class='bx bx-buildings'></i> ${expData.company || ''}`;
+        const companyEl = card.querySelector('.company');
+        if (companyEl) {
+            companyEl.innerHTML = `<i class='bx bx-buildings'></i> ${expData.company || ''}`;
+        }
         
-        const description = card.querySelector('.job-description');
-        if (description) description.textContent = expData.description || '';
+        const descriptionEl = card.querySelector('.job-description');
+        if (descriptionEl) {
+            descriptionEl.textContent = expData.description || '';
+        }
         
-        const tags = card.querySelector('.job-tags');
-        if (tags && expData.technologies && expData.technologies.length > 0) {
+        let tags = card.querySelector('.job-tags');
+        if (expData.technologies && expData.technologies.length > 0) {
+            if (!tags) {
+                // Create tags container if it doesn't exist
+                tags = document.createElement('div');
+                tags.className = 'job-tags';
+                const desc = card.querySelector('.job-description');
+                if (desc && desc.nextSibling) {
+                    card.insertBefore(tags, desc.nextSibling);
+                } else {
+                    card.appendChild(tags);
+                }
+            }
             tags.innerHTML = expData.technologies.map(tech => `<span class="tag">${tech}</span>`).join('');
+        } else if (tags) {
+            tags.innerHTML = '';
         }
     }
     
@@ -858,31 +1014,51 @@ function updateExperience(event, id) {
 
 function updateEducation(event, id) {
     event.preventDefault();
+    showPasswordPrompt(() => {
+        updateEducationAction(event, id);
+    }, 'update this education');
+}
+
+function updateEducationAction(event, id) {
+    event.preventDefault();
     const form = event.target;
     
+    // Get form values using querySelector for reliability
+    // Form order: Year, Level (select), Degree Name, Institution, Description (textarea), Highlights
+    const formRows = form.querySelectorAll('.form-row');
+    const year = formRows[0]?.querySelector('input[placeholder*="Year"]')?.value || '';
+    const level = formRows[0]?.querySelector('select')?.value || '';
+    const degree = formRows[1]?.querySelector('input[placeholder*="Degree Name"]')?.value || '';
+    const institution = formRows[1]?.querySelector('input[placeholder*="Institution"]')?.value || '';
+    const description = form.querySelector('textarea[placeholder*="Description"]')?.value || '';
+    const highlightsInput = form.querySelector('input[placeholder*="Highlights"]');
+    const highlightsValue = highlightsInput?.value || '';
+    const highlights = highlightsValue ? highlightsValue.split(',').map(h => h.trim()).filter(Boolean) : [];
+    
     const eduData = {
-        id: id,
-        year: form[0].value,
-        level: form[1].value,
-        degree: form[2].value,
-        institution: form[3].value,
-        description: form[4].value,
-        highlights: form[5].value ? form[5].value.split(',').map(h => h.trim()) : [],
+        id: parseInt(id),
+        year: year,
+        level: level,
+        degree: degree,
+        institution: institution,
+        description: description,
+        highlights: highlights,
         icon: 'bx-graduation'
     };
     
     // Save to localStorage (always - for both HTML cards and new items)
     const saved = localStorage.getItem('resumeData');
     let savedData = saved ? JSON.parse(saved) : { education: [] };
-    const index = savedData.education.findIndex(e => e.id === id);
+    if (!savedData.education) savedData.education = [];
+    
+    const index = savedData.education.findIndex(e => e.id == id || String(e.id) === String(id));
     if (index !== -1) {
         savedData.education[index] = eduData;
-        localStorage.setItem('resumeData', JSON.stringify(savedData));
     } else {
         // If not in localStorage, add it (HTML card being edited)
         savedData.education.push(eduData);
-        localStorage.setItem('resumeData', JSON.stringify(savedData));
     }
+    localStorage.setItem('resumeData', JSON.stringify(savedData));
     
     // Update the card in DOM
     const card = document.querySelector(`[data-edu-id="${id}"]`);
@@ -902,15 +1078,32 @@ function updateEducation(event, id) {
         const h3 = card.querySelector('h3');
         if (h3) h3.textContent = eduData.degree || '';
         
-        const company = card.querySelector('.company');
-        if (company) company.innerHTML = `<i class='bx bx-buildings'></i> ${eduData.institution || ''}`;
+        const companyEl = card.querySelector('.company');
+        if (companyEl) {
+            companyEl.innerHTML = `<i class='bx bx-buildings'></i> ${eduData.institution || ''}`;
+        }
         
-        const description = card.querySelector('.education-description');
-        if (description) description.textContent = eduData.description || '';
+        const descriptionEl = card.querySelector('.education-description');
+        if (descriptionEl) {
+            descriptionEl.textContent = eduData.description || '';
+        }
         
-        const highlights = card.querySelector('.education-highlights');
-        if (highlights && eduData.highlights && eduData.highlights.length > 0) {
-            highlights.innerHTML = eduData.highlights.map(h => `<span class="highlight"><i class='bx bx-check-circle'></i> ${h}</span>`).join('');
+        let highlightsContainer = card.querySelector('.education-highlights');
+        if (eduData.highlights && eduData.highlights.length > 0) {
+            if (!highlightsContainer) {
+                // Create highlights container if it doesn't exist
+                highlightsContainer = document.createElement('div');
+                highlightsContainer.className = 'education-highlights';
+                const desc = card.querySelector('.education-description');
+                if (desc && desc.nextSibling) {
+                    card.insertBefore(highlightsContainer, desc.nextSibling);
+                } else {
+                    card.appendChild(highlightsContainer);
+                }
+            }
+            highlightsContainer.innerHTML = eduData.highlights.map(h => `<span class="highlight"><i class='bx bx-check-circle'></i> ${h}</span>`).join('');
+        } else if (highlightsContainer) {
+            highlightsContainer.innerHTML = '';
         }
     }
     
@@ -918,6 +1111,13 @@ function updateEducation(event, id) {
 }
 
 function updateCertificate(event, id) {
+    event.preventDefault();
+    showPasswordPrompt(() => {
+        updateCertificateAction(event, id);
+    }, 'update this certificate');
+}
+
+function updateCertificateAction(event, id) {
     event.preventDefault();
     const form = event.target;
     
